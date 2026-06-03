@@ -1,0 +1,276 @@
+/* ===========================
+   QUICK BUDGET PAGE
+=========================== */
+
+body{
+    background:#f5f8ff;
+}
+
+/* ===========================
+   INPUTS
+=========================== */
+
+#initialAmount,
+#expenseLabel,
+#expenseAmount{
+    width:100%;
+    max-width:700px;
+    display:block;
+    margin:20px auto;
+    padding:15px;
+    border:1px solid #dce5f5;
+    border-radius:12px;
+    background:#fff;
+    font-size:16px;
+}
+
+#initialAmount:focus,
+#expenseLabel:focus,
+#expenseAmount:focus{
+    outline:none;
+    border-color:#1a6fdb;
+    box-shadow:0 0 0 4px rgba(26,111,219,.15);
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.set-btn,
+.add-btn,
+.done-btn,
+.reset-btn{
+    display:block;
+    margin:15px auto;
+    min-width:220px;
+    padding:14px 24px;
+    border:none;
+    border-radius:12px;
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.set-btn{
+    background:#1a6fdb;
+}
+
+.add-btn{
+    background:#22a559;
+}
+
+.done-btn{
+    background:#7c3aed;
+}
+
+.reset-btn{
+    background:#e53e3e;
+}
+
+.set-btn:hover,
+.add-btn:hover,
+.done-btn:hover,
+.reset-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* ===========================
+   BUDGET OVERVIEW
+=========================== */
+
+.budget-overview{
+    max-width:900px;
+    margin:40px auto;
+}
+
+.budget-box{
+    background:#ffffff;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.budget-box h3{
+    text-align:center;
+    color:#1252a8;
+    margin-bottom:25px;
+}
+
+.amount-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 0;
+    border-bottom:1px solid #edf2f7;
+}
+
+.amount-row:last-child{
+    border-bottom:none;
+}
+
+.amount-row span{
+    color:#64748b;
+    font-weight:500;
+}
+
+.amount-row strong{
+    color:#1a6fdb;
+    font-size:1.2rem;
+}
+
+/* ===========================
+   PROGRESS BAR
+=========================== */
+
+.progress{
+    width:100%;
+    height:22px;
+    margin-top:25px;
+    background:#dce6f5;
+    border-radius:30px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        #22a559,
+        #38c172
+    );
+    transition:width .4s ease;
+}
+
+/* ===========================
+   EXPENSE SECTION
+=========================== */
+
+.expense-section{
+    max-width:900px;
+    margin:40px auto;
+    padding:30px;
+    background:#ffffff;
+    border-radius:20px;
+    border-left:5px solid #1a6fdb;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+.expense-section h2{
+    text-align:center;
+    color:#1252a8;
+    margin-bottom:20px;
+}
+
+/* ===========================
+   SUMMARY SECTION
+=========================== */
+
+.summary-section{
+    max-width:1100px;
+    margin:40px auto;
+    padding:30px;
+    background:#ffffff;
+    border-radius:20px;
+    border-left:5px solid #22a559;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+.summary-section h2{
+    text-align:center;
+    color:#1252a8;
+    margin-bottom:25px;
+}
+
+/* ===========================
+   TABLE
+=========================== */
+
+.summary-section table{
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.summary-section th{
+    background:#1a6fdb;
+    color:white;
+    padding:16px;
+}
+
+.summary-section td{
+    padding:16px;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.summary-section td:first-child{
+    text-align:left;
+}
+
+.summary-section td:last-child{
+    text-align:right;
+    font-weight:600;
+}
+
+.summary-section tbody tr:nth-child(even){
+    background:#f8fbff;
+}
+
+.summary-section tbody tr:hover{
+    background:#eef5ff;
+}
+
+/* ===========================
+   PIE CHART
+=========================== */
+
+#budgetChart{
+    display:block;
+    max-width:400px;
+    width:100%;
+    margin:40px auto;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:768px){
+
+    #initialAmount,
+    #expenseLabel,
+    #expenseAmount{
+        width:90%;
+    }
+
+    .set-btn,
+    .add-btn,
+    .done-btn,
+    .reset-btn{
+        width:90%;
+    }
+
+    .expense-section,
+    .summary-section,
+    .budget-overview{
+        margin:20px 15px;
+    }
+
+    .expense-section,
+    .summary-section{
+        padding:20px;
+    }
+
+    .amount-row{
+        flex-direction:column;
+        gap:8px;
+        text-align:center;
+    }
+
+    .summary-section{
+        overflow-x:auto;
+    }
+}

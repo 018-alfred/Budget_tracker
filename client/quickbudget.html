@@ -3,6 +3,10 @@
 <head>
     <title>Quick Budget</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="quickbudget.css">
+    <link rel="icon" type="image/svg+xml" href="image/budgetlogo-removebg.png">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -19,28 +23,118 @@
     </nav>
 </header>
 
-<h1>Quick Budget</h1>
+<!-- BUDGET SETUP -->
+    <section class="expense-section">
 
-<input type="number" placeholder="Enter Amount">
+        <h2>Set Your Budget</h2>
 
-<button>Set Amount</button>
+        <input
+            type="number"
+            id="initialAmount"
+            placeholder="Enter Initial Budget Amount">
 
-<div class="cards">
-    <div class="card">Initial Amount</div>
-    <div class="card">Remaining</div>
-    <div class="card">Total Spent</div>
-</div>
+        <button class="set-btn" onclick="setBudget()">
+            Set Budget
+        </button>
 
-<div class="progress">
-    <div class="progress-fill"></div>
-</div>
+    </section>
 
-<input type="text" placeholder="Purchase Label">
-<input type="number" placeholder="Amount">
+    <!-- BUDGET OVERVIEW -->
+    <div class="budget-overview">
 
-<button>Add Purchase</button>
+        <div class="budget-box">
 
-<button class="reset-btn">Reset</button>
+            <h3>Budget Overview</h3>
+
+            <div class="amount-row">
+                <span>Initial Budget</span>
+                <strong id="showInitial">₹0</strong>
+            </div>
+
+            <div class="amount-row">
+                <span>Total Spent</span>
+                <strong id="showSpent">₹0</strong>
+            </div>
+
+            <div class="amount-row">
+                <span>Remaining Amount</span>
+                <strong id="showRemaining">₹0</strong>
+            </div>
+
+            <div class="progress">
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ADD EXPENSE -->
+    <section class="expense-section">
+
+        <h2>Add Expense</h2>
+
+        <input
+            type="text"
+            id="expenseLabel"
+            placeholder="Expense Name (Food, Travel, Rent...)">
+
+        <input
+            type="number"
+            id="expenseAmount"
+            placeholder="Expense Amount">
+
+        <button class="add-btn" onclick="addExpense()">
+            Add Expense
+        </button>
+
+        <button class="done-btn" onclick="generateSummary()">
+            Generate Report
+        </button>
+
+    </section>
+
+    <!-- FINANCIAL STATEMENT -->
+    <section class="summary-section">
+
+        <h2>Financial Statement</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Payment Details</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+
+            <tbody id="summaryTable">
+
+                <tr>
+                    <td>Initial Budget</td>
+                    <td>₹0</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <!-- PIE CHART -->
+        <canvas id="budgetChart"></canvas>
+
+        <button
+            class="reset-btn"
+            onclick="resetBudget()">
+            Reset Budget
+        </button>
+
+    </section>
+ 
+
+<script src="quickbudget.js"></script>
 
 <footer class="footer">
     <div class="footer-container">
