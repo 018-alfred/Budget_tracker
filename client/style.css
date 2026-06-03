@@ -36,8 +36,8 @@ body{
 header{
     background:linear-gradient(
         135deg,
-        #1a6fdb,
-        #1252a8
+        #75a9ec,
+        #a2caff
     );
     display:flex;
     justify-content:space-between;
