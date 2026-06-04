@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BudgetTracker - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="year-budget.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/svg+xml" href="image/header logo blueBT.png"> 
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="image/header logo blueBT.png" alt="BudgetTracker Logo">
+        <h1>BudgetTracker</h1>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="budget.html">Budget</a>
+        <a href="quickbudget.html">Quick Budget</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Sign Up</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <h1>Year Budget Analysis</h1>
+
+    <div class="card">
+
+        <h2>Select Monthly Budgets</h2>
+
+        <select id="monthSelector" multiple></select>
+
+        <button onclick="generateYearAnalysis()">
+            Generate Analysis
+        </button>
+
+    </div>
+
+    <div class="summary">
+
+        <div class="summary-card">
+            <h3>Total Income</h3>
+            <p id="incomeResult">₹0</p>
+        </div>
+
+        <div class="summary-card">
+            <h3>Total Expense</h3>
+            <p id="expenseResult">₹0</p>
+        </div>
+
+        <div class="summary-card">
+            <h3>Total Savings</h3>
+            <p id="savingResult">₹0</p>
+        </div>
+
+        <div class="summary-card">
+            <h3>Saving Rate</h3>
+            <p id="savingRate">0%</p>
+        </div>
+
+    </div>
+
+    <div class="charts">
+
+        <div class="chart-card">
+            <canvas id="barChart"></canvas>
+        </div>
+
+        <div class="chart-card">
+            <canvas id="pieChart"></canvas>
+        </div>
+
+    </div>
+
+    <div class="actions">
+
+        <button onclick="saveAnnualBudget()">
+            Save Annual Budget
+        </button>
+
+    </div>
+
+</div>
+
+<script src="year-budget.js"></script>
+
+<footer class="footer">
+    <div class="footer-container">
+
+        <div class="footer-brand">
+            <div class="brand-header">
+                <img src="image/footer logo lightBT.png" alt="BudgetTracker Logo">
+                <h3>BudgetTracker</h3>
+            </div>
+
+            <p>
+                Take control of every rupee and build smarter financial habits.
+            </p>
+        </div>
+
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="budget.html">Budget</a></li>
+                <li><a href="quickbudget.html">Quick Budget</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-contact">
+            <h4>Contact</h4>
+            <p>support@budgettracker.com</p>
+            <p>+91 98765 43210</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 BudgetTracker. All Rights Reserved.</p>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,105 @@
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:40px auto;
+}
+
+.container h1{
+    text-align:center;
+    color:#005ffc;
+    margin-bottom:30px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    margin-bottom:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card h2{
+    margin-bottom:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+input{
+    padding:14px;
+    border:1px solid #dbeafe;
+    border-radius:12px;
+}
+
+.button-group{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-bottom:30px;
+}
+
+.button-group button{
+    border:none;
+    padding:14px 24px;
+    border-radius:12px;
+    cursor:pointer;
+    color:white;
+    font-weight:600;
+}
+
+.button-group button:nth-child(1){
+    background:#005ffc;
+}
+
+.button-group button:nth-child(2){
+    background:#10b981;
+}
+
+.button-group button:nth-child(3){
+    background:#f59e0b;
+}
+
+.button-group button:nth-child(4){
+    background:#ef4444;
+}
+
+.summary{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.summary-card{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.summary-card p{
+    font-size:1.8rem;
+    font-weight:bold;
+}
+
+#incomeResult{
+    color:#10b981;
+}
+
+#expenseResult{
+    color:#ef4444;
+}
+
+#savingResult{
+    color:#005ffc;
+}
+
+#savingRate{
+    color:#7c3aed;
+}

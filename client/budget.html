@@ -22,36 +22,100 @@
     </nav>
 </header>
 
-<h1>Budget Tracker</h1>
+<main class="container">
 
-<select>
-    <option>Monthly Budget</option>
-    <option>Annual Budget</option>
-</select>
+    <section class="hero">
 
-<input type="number" placeholder="Enter Budget Amount">
+        <h2>Budget Management Dashboard</h2>
 
-<button>Set Budget</button>
+        <p>
+            Track Monthly, Yearly, Annual and 5-Year Financial Performance
+        </p>
 
-<div class="cards">
-    <div class="card">Total Budget</div>
-    <div class="card">Amount Spent</div>
-    <div class="card">Remaining</div>
-    <div class="card">Expense Count</div>
-</div>
+    </section>
 
-<input type="text" placeholder="Expense Label">
-<input type="number" placeholder="Amount">
-<button>Add Expense</button>
+    <!-- Budget Options -->
 
-<table>
-    <tr>
-        <th>#</th>
-        <th>Label</th>
-        <th>Amount</th>
-        <th>%</th>
-    </tr>
-</table>
+    <section class="budget-grid">
+
+        <a href="monthly-budget.html" class="budget-card">
+
+            <i class="fa-solid fa-calendar-days"></i>
+
+            <h3>Monthly Budget</h3>
+
+            <p>
+                Create and manage monthly budgets
+            </p>
+
+        </a>
+
+        <a href="year-budget.html" class="budget-card">
+
+            <i class="fa-solid fa-chart-column"></i>
+
+            <h3>Year Budget</h3>
+
+            <p>
+                Generate annual summary from months
+            </p>
+
+        </a>
+
+        <a href="annual-budget.html" class="budget-card">
+
+            <i class="fa-solid fa-coins"></i>
+
+            <h3>Annual Budget</h3>
+
+            <p>
+                Add yearly financial records
+            </p>
+
+        </a>
+
+        <a href="fiveyear-budget.html" class="budget-card">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <h3>5-Year Budget</h3>
+
+            <p>
+                Analyze long-term financial growth
+            </p>
+
+        </a>
+
+    </section>
+
+    <!-- Saved Monthly Budgets -->
+
+    <section class="records-section">
+
+        <h2>Saved Monthly Budgets</h2>
+
+        <div id="monthlyBudgetList"
+             class="record-container">
+        </div>
+
+    </section>
+
+    <!-- Saved Annual Budgets -->
+
+    <section class="records-section">
+
+        <h2>Saved Annual Budgets</h2>
+
+        <div id="annualBudgetList"
+             class="record-container">
+        </div>
+
+    </section>
+
+</main>
+
+<script src="js/budget.js"></script>
+
 <footer class="footer">
     <div class="footer-container">
 

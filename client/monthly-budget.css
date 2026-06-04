@@ -1,0 +1,188 @@
+/* =========================
+   MONTHLY BUDGET PAGE
+========================= */
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:40px auto;
+}
+
+.container h1{
+    text-align:center;
+    color:#005ffc;
+    margin-bottom:30px;
+    font-size:2.2rem;
+}
+
+/* =========================
+   CARD SECTION
+========================= */
+
+.card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card h2{
+    color:#0f172a;
+    margin-bottom:20px;
+    font-size:1.3rem;
+}
+
+/* =========================
+   INPUT GRID
+========================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
+}
+
+.grid input,
+.grid select{
+    width:100%;
+    padding:14px;
+    border:1px solid #dbeafe;
+    border-radius:12px;
+    font-size:15px;
+    background:#f8fbff;
+    transition:0.3s;
+}
+
+.grid input:focus,
+.grid select:focus{
+    border-color:#005ffc;
+    outline:none;
+    box-shadow:0 0 0 4px rgba(0,95,252,0.15);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.button-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    margin:30px 0;
+    justify-content:center;
+}
+
+.button-group button{
+    border:none;
+    padding:14px 24px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.button-group button:nth-child(1){
+    background:#005ffc;
+    color:white;
+}
+
+.button-group button:nth-child(2){
+    background:#10b981;
+    color:white;
+}
+
+.button-group button:nth-child(3){
+    background:#f59e0b;
+    color:white;
+}
+
+.button-group button:nth-child(4){
+    background:#ef4444;
+    color:white;
+}
+
+.button-group button:hover{
+    transform:translateY(-3px);
+}
+
+/* =========================
+   SUMMARY CARDS
+========================= */
+
+.summary{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
+
+.summary-card{
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.summary-card h3{
+    color:#64748b;
+    margin-bottom:12px;
+    font-size:1rem;
+}
+
+.summary-card p{
+    font-size:1.8rem;
+    font-weight:700;
+    color:#005ffc;
+}
+
+/* =========================
+   RESULTS COLORS
+========================= */
+
+#incomeResult{
+    color:#10b981;
+}
+
+#expenseResult{
+    color:#ef4444;
+}
+
+#savingResult{
+    color:#005ffc;
+}
+
+#savingRate{
+    color:#7c3aed;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .container{
+        width:95%;
+    }
+
+    .container h1{
+        font-size:1.8rem;
+    }
+
+    .button-group{
+        flex-direction:column;
+    }
+
+    .button-group button{
+        width:100%;
+    }
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+}
