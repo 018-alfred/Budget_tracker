@@ -3,6 +3,7 @@
 <head>
     <title>Sign Up</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="signup.css">
     <link rel="icon" type="image/svg+xml" href="image/header logo blueBT.png">
 </head>
 <body>
@@ -21,28 +22,79 @@
     </nav>
 </header>
 
-<div class="auth-card">
+<div class="signup-container">
 
-    <h1>✨ Create Account</h1>
+    <!-- LEFT VIDEO SIDE -->
+    <div class="video-side">
 
-    <p>Create your BudgetWise account</p>
+        <video autoplay muted loop playsinline>
+            <source src="video/colorful-circuit-electric2.1920x1080.mp4" type="video/mp4">
+        </video>
 
-    <input type="text" placeholder="Full Name">
+        <div class="video-content">
 
-    <input type="email" placeholder="Email">
+            <div class="center-brand">
+                <img src="image/header logo blueBT.png" alt="BudgetTracker Logo">
+                <h1>BudgetTracker</h1>
+            </div>
 
-    <input type="password" placeholder="Password">
+            <div class="glow-text">
+                <p>Build Better Financial Habits</p>
+            </div>
 
-    <input type="password" placeholder="Confirm Password">
+        </div>
 
-    <button>Create Account</button>
+    </div>
 
-    <p>
-        Already have an account?
-        <a href="login.html">Login</a>
-    </p>
+    <!-- RIGHT SIGNUP SIDE -->
+    <div class="signup-side">
+
+        <div class="signup-card">
+
+            <h2>Create Account ✨</h2>
+            <p>Start your smart budgeting journey today</p>
+
+            <form id="signupForm">
+
+                <div class="input-group">
+                    <input type="text" id="name" required>
+                    <label>Full Name</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" id="email" required>
+                    <label>Email Address</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="password" required>
+                    <label>Password</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="confirmPassword" required>
+                    <label>Confirm Password</label>
+                </div>
+
+                <button type="submit">Create Account</button>
+
+                <div id="message"></div>
+
+            </form>
+
+            <p class="login-link">
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+
+        </div>
+
+    </div>
 
 </div>
+
+<script src="signup.js"></script>
+
 <footer class="footer">
     <div class="footer-container">
 

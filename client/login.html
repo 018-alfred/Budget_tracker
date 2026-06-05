@@ -3,6 +3,7 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
     <link rel="icon" type="image/svg+xml" href="image/header logo blueBT.png">
 </head>
 <body>
@@ -21,24 +22,62 @@
     </nav>
 </header>
 
-<div class="auth-card">
+<div class="container">
 
-    <h1>🔑 Welcome Back</h1>
+    <!-- LEFT VIDEO SECTION -->
+    <div class="video-side">
 
-    <p>Login to your account</p>
+        <video autoplay muted loop playsinline>
+            <source src="video/login video without water mark.mp4" type="video/mp4">
+        </video>
 
-    <input type="email" placeholder="Email">
+        
 
-    <input type="password" placeholder="Password">
+        <div class="glow-text">
+            <p>Track Smarter • Spend Better • Save More</p>
+        </div>
 
-    <button>Login</button>
+    </div>
 
-    <p>
-        Don't have an account?
-        <a href="signup.html">Sign Up</a>
-    </p>
+    <!-- RIGHT LOGIN SECTION -->
+    <div class="login-side">
+
+        <div class="login-card">
+
+            <h2>Welcome Back 👋</h2>
+            <p>Login to continue managing your finances</p>
+
+            <form id="loginForm">
+
+                <div class="input-group">
+                    <input type="email" id="email" required>
+                    <label>Email Address</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="password" required>
+                    <label>Password</label>
+                </div>
+
+                <button type="submit">Login</button>
+
+                <div id="message"></div>
+
+            </form>
+
+            <p class="signup">
+                Don't have an account?
+                <a href="signup.html">Sign Up</a>
+            </p>
+
+        </div>
+
+    </div>
 
 </div>
+
+<script src="login.js"></script>
+
 <footer class="footer">
     <div class="footer-container">
 
