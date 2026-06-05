@@ -1,177 +1,262 @@
-/* =========================
-   MONTHLY BUDGET PAGE
-========================= */
+:root{
+    --primary:#1a6fdb;
+    --dark:#1252a8;
+    --light:#eef5ff;
+    --bg:#f5f9ff;
+    --text:#0d1b3e;
+    --white:#ffffff;
+}
 
-.container{
-    width:90%;
-    max-width:1200px;
+body{
+    background:var(--bg);
+}
+
+/* MAIN LAYOUT */
+
+.monthly-layout{
+    display:grid;
+    grid-template-columns:3fr 0.9fr;
+    gap:25px;
+    align-items:start;
     margin:40px auto;
+    max-width:1400px;
 }
 
-.container h1{
-    text-align:center;
-    color:#005ffc;
-    margin-bottom:30px;
-    font-size:2.2rem;
-}
+/* LEFT SIDE */
 
-/* =========================
-   CARD SECTION
-========================= */
+.budget-form{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
 
 .card{
-    background:#ffffff;
-    border-radius:18px;
+    background:white;
+    border-radius:16px;
     padding:25px;
-    margin-bottom:25px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
 }
 
 .card h2{
-    color:#0f172a;
+    color:var(--primary);
     margin-bottom:20px;
-    font-size:1.3rem;
 }
 
-/* =========================
-   INPUT GRID
-========================= */
+/* INPUT GRID */
 
 .grid{
     display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
-    gap:16px;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
 }
 
-.grid input,
-.grid select{
-    width:100%;
+/* INPUT GROUPS */
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.input-group label{
+    font-size:14px;
+    font-weight:600;
+    color:var(--primary);
+}
+
+/* INPUTS */
+
+.input-group input,
+.input-group select{
     padding:14px;
-    border:1px solid #dbeafe;
-    border-radius:12px;
-    font-size:15px;
-    background:#f8fbff;
+    border:1px solid #d6e4ff;
+    border-radius:10px;
+    background:#fff;
     transition:0.3s;
+    font-size:15px;
 }
 
-.grid input:focus,
-.grid select:focus{
-    border-color:#005ffc;
+.input-group input:focus,
+.input-group select:focus{
+    border-color:var(--primary);
     outline:none;
-    box-shadow:0 0 0 4px rgba(0,95,252,0.15);
+    box-shadow:0 0 0 3px rgba(26,111,219,0.15);
 }
 
-/* =========================
-   BUTTONS
-========================= */
+/* BUTTONS */
 
 .button-group{
     display:flex;
+    gap:12px;
     flex-wrap:wrap;
-    gap:15px;
-    margin:30px 0;
-    justify-content:center;
 }
 
 .button-group button{
+    padding:12px 22px;
     border:none;
-    padding:14px 24px;
-    border-radius:12px;
+    border-radius:10px;
+    background:var(--primary);
+    color:white;
     cursor:pointer;
-    font-size:15px;
     font-weight:600;
     transition:0.3s;
 }
 
-.button-group button:nth-child(1){
-    background:#005ffc;
-    color:white;
-}
-
-.button-group button:nth-child(2){
-    background:#10b981;
-    color:white;
-}
-
-.button-group button:nth-child(3){
-    background:#f59e0b;
-    color:white;
-}
-
-.button-group button:nth-child(4){
-    background:#ef4444;
-    color:white;
-}
-
 .button-group button:hover{
-    transform:translateY(-3px);
+    background:var(--dark);
 }
 
-/* =========================
-   SUMMARY CARDS
-========================= */
+/* RIGHT DASHBOARD */
 
-.summary{
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
+.dashboard{
+    display:flex;
+    flex-direction:column;
     gap:20px;
-    margin-top:20px;
+    position:sticky;
+    top:20px;
+    height:max-content;
 }
 
-.summary-card{
-    background:white;
-    border-radius:18px;
-    padding:25px;
+/* NET BALANCE CARD */
+
+.balance-card{
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--dark)
+    );
+
+    color:white;
     text-align:center;
-    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    padding:24px;
+    border-radius:18px;
 }
 
-.summary-card h3{
-    color:#64748b;
-    margin-bottom:12px;
-    font-size:1rem;
+.balance-card h3{
+    opacity:.9;
+    margin-bottom:10px;
 }
 
-.summary-card p{
-    font-size:1.8rem;
+.balance-card h1{
+    font-size:2.4rem;
+    margin:10px 0;
+}
+
+.balance-card p{
+    opacity:.9;
+}
+
+/* STATS */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.stat-box{
+    background:white;
+    border-radius:14px;
+    padding:14px;
+    box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.stat-box h4{
+    color:#666;
+    margin-bottom:10px;
+}
+
+.stat-box p{
+    font-size:1.1rem;
     font-weight:700;
-    color:#005ffc;
+    color:var(--primary);
 }
 
-/* =========================
-   RESULTS COLORS
-========================= */
+/* DASHBOARD CARDS */
 
-#incomeResult{
-    color:#10b981;
+.dashboard-card{
+    background:white;
+    border-radius:16px;
+    padding:16px;
+    box-shadow:0 5px 15px rgba(0,0,0,.05);
 }
 
-#expenseResult{
-    color:#ef4444;
+.dashboard-card h3{
+    margin-bottom:15px;
+    color:var(--primary);
 }
 
-#savingResult{
-    color:#005ffc;
+/* EXPENSE BREAKDOWN */
+
+.expense-item{
+    margin-bottom:18px;
 }
 
-#savingRate{
-    color:#7c3aed;
+.expense-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:6px;
+    font-size:14px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+.expense-bar{
+    height:10px;
+    background:#dce8ff;
+    border-radius:20px;
+    overflow:hidden;
+}
 
-@media(max-width:768px){
+.expense-fill{
+    height:100%;
+    border-radius:20px;
+    background:var(--primary);
+}
 
-    .container{
-        width:95%;
+/* ADVICE */
+
+#adviceBox{
+    background:#eef5ff;
+    padding:18px;
+    border-radius:10px;
+    border-left:4px solid var(--primary);
+    line-height:1.6;
+}
+
+/* CHARTS */
+
+canvas{
+    max-width:100%;
+}
+
+#pieChart{
+    max-height:260px;
+}
+
+#barChart{
+    max-height:220px;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+    .monthly-layout{
+        grid-template-columns:1fr;
     }
 
-    .container h1{
-        font-size:1.8rem;
+    .dashboard{
+        position:static;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .stats-grid{
+        grid-template-columns:1fr;
     }
 
     .button-group{
@@ -181,8 +266,4 @@
     .button-group button{
         width:100%;
     }
-
-    .summary{
-        grid-template-columns:1fr;
-    }
-}
+}  

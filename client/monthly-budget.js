@@ -1,139 +1,280 @@
-let totalIncome = 0;
-let totalExpense = 0;
-let savings = 0;
-let savingRate = 0;
-
-function getValue(id){
-
-    return Number(
-        document.getElementById(id).value
-    ) || 0;
-}
+let pieChart;
+let barChart;
 
 function calculateBudget(){
 
-    totalIncome =
+    const incomeIds = [
+        "salary",
+        "business",
+        "freelance",
+        "investment",
+        "otherIncome"
+    ];
 
-        getValue("salary") +
-        getValue("business") +
-        getValue("freelance") +
-        getValue("investment") +
-        getValue("otherIncome");
+    const expenseIds = [
+        "rent",
+        "food",
+        "transport",
+        "utilities",
+        "healthcare",
+        "education",
+        "shopping",
+        "entertainment",
+        "insurance",
+        "emi",
+        "others"
+    ];
 
-    totalExpense =
+    let totalIncome = 0;
+    let totalExpense = 0;
 
-        getValue("rent") +
-        getValue("food") +
-        getValue("transport") +
-        getValue("utilities") +
-        getValue("healthcare") +
-        getValue("education") +
-        getValue("shopping") +
-        getValue("entertainment") +
-        getValue("insurance") +
-        getValue("emi") +
-        getValue("others");
+    incomeIds.forEach(id=>{
+        totalIncome +=
+        Number(document.getElementById(id).value) || 0;
+    });
 
-    savings =
-    totalIncome - totalExpense;
+    expenseIds.forEach(id=>{
+        totalExpense +=
+        Number(document.getElementById(id).value) || 0;
+    });
 
-    savingRate =
-    totalIncome > 0
-    ? ((savings / totalIncome) * 100)
-    : 0;
+    const savings =
+        totalIncome - totalExpense;
 
-    document.getElementById(
-    "incomeResult"
-    ).innerText =
-    `₹${totalIncome}`;
+    const savingRate =
+        totalIncome > 0
+        ? ((savings / totalIncome) * 100).toFixed(1)
+        : 0;
 
-    document.getElementById(
-    "expenseResult"
-    ).innerText =
-    `₹${totalExpense}`;
+    document.getElementById("incomeResult").innerText =
+        "₹" + totalIncome.toLocaleString();
 
-    document.getElementById(
-    "savingResult"
-    ).innerText =
-    `₹${savings}`;
+    document.getElementById("expenseResult").innerText =
+        "₹" + totalExpense.toLocaleString();
 
-    document.getElementById(
-    "savingRate"
-    ).innerText =
-    `${savingRate.toFixed(2)}%`;
-}
+    document.getElementById("savingResult").innerText =
+        "₹" + savings.toLocaleString();
 
-function saveBudget(){
+    document.getElementById("savingRate").innerText =
+        savingRate + "%";
 
-    calculateBudget();
+    document.getElementById("netBalance").innerText =
+        "₹" + savings.toLocaleString();
 
-    const budget = {
+    if(savings > 0){
+        document.getElementById("statusMessage").innerText =
+        "Excellent! You are saving money.";
+    }
+    else{
+        document.getElementById("statusMessage").innerText =
+        "Warning! Expenses exceed income.";
+    }
 
-        month:
-        document.getElementById(
-        "month"
-        ).value,
-
-        year:
-        document.getElementById(
-        "year"
-        ).value,
-
-        totalIncome,
-
-        totalExpense,
-
-        savings,
-
-        savingRate
-    };
-
-    const budgets =
-
-    JSON.parse(
-    localStorage.getItem(
-    "monthlyBudgets"
-    )) || [];
-
-    budgets.push(budget);
-
-    localStorage.setItem(
-        "monthlyBudgets",
-        JSON.stringify(budgets)
+    createExpenseBreakdown(
+        expenseIds,
+        totalExpense
     );
 
-    alert("Budget Saved Successfully");
+    createPieChart(expenseIds);
+
+    createBarChart(
+        totalIncome,
+        totalExpense,
+        savings
+    );
+
+    generateAdvice(savingRate);
 }
+
+/* Expense Breakdown */
+
+function createExpenseBreakdown(
+    expenseIds,
+    totalExpense
+){
+
+    let html = "";
+
+    expenseIds.forEach(id=>{
+
+        const value =
+        Number(document.getElementById(id).value) || 0;
+
+        if(value > 0){
+
+            const percentage =
+            ((value / totalExpense) * 100).toFixed(1);
+
+            html += `
+            <div class="expense-item">
+
+                <div class="expense-row">
+                    <span>${id}</span>
+                    <span>
+                        ₹${value.toLocaleString()}
+                    </span>
+                </div>
+
+                <div class="expense-bar">
+                    <div
+                    class="expense-fill"
+                    style="width:${percentage}%">
+                    </div>
+                </div>
+
+            </div>`;
+        }
+    });
+
+    document.getElementById(
+        "expenseBreakdown"
+    ).innerHTML = html;
+}
+
+/* Pie Chart */
+
+function createPieChart(expenseIds){
+
+    const labels = [];
+    const data = [];
+
+    expenseIds.forEach(id=>{
+
+        const value =
+        Number(document.getElementById(id).value) || 0;
+
+        if(value > 0){
+            labels.push(id);
+            data.push(value);
+        }
+    });
+
+    if(pieChart){
+        pieChart.destroy();
+    }
+
+    pieChart = new Chart(
+        document.getElementById("pieChart"),
+        {
+            type:"doughnut",
+
+            data:{
+                labels:labels,
+                datasets:[{
+                    data:data
+                }]
+            },
+
+            options:{
+                responsive:true
+            }
+        }
+    );
+}
+
+/* Bar Chart */
+
+function createBarChart(
+    income,
+    expense,
+    saving
+){
+
+    if(barChart){
+        barChart.destroy();
+    }
+
+    barChart = new Chart(
+        document.getElementById("barChart"),
+        {
+            type:"bar",
+
+            data:{
+                labels:[
+                    "Income",
+                    "Expenses",
+                    "Savings"
+                ],
+
+                datasets:[{
+                    data:[
+                        income,
+                        expense,
+                        saving
+                    ]
+                }]
+            },
+
+            options:{
+                responsive:true
+            }
+        }
+    );
+}
+
+/* Advice */
+
+function generateAdvice(rate){
+
+    let msg = "";
+
+    if(rate >= 20){
+
+        msg =
+        "Excellent financial health. Your savings rate is above 20%.";
+
+    }
+    else if(rate >= 10){
+
+        msg =
+        "Good progress. Try increasing savings to 20%.";
+
+    }
+    else{
+
+        msg =
+        "Your savings rate is low. Consider reducing non-essential expenses.";
+    }
+
+    document.getElementById(
+        "adviceBox"
+    ).innerHTML = msg;
+}
+
+/* Reset */
 
 function resetForm(){
 
     document
     .querySelectorAll("input")
     .forEach(input=>{
-
         input.value = "";
     });
 
-    document.getElementById(
-    "incomeResult"
-    ).innerText = "₹0";
-
-    document.getElementById(
-    "expenseResult"
-    ).innerText = "₹0";
-
-    document.getElementById(
-    "savingResult"
-    ).innerText = "₹0";
-
-    document.getElementById(
-    "savingRate"
-    ).innerText = "0%";
+    location.reload();
 }
 
-function downloadReport(){
+/* Save */
 
-    calculateBudget();
+function saveBudget(){
+
+    localStorage.setItem(
+        "monthlyBudget",
+        JSON.stringify({
+            month:
+            document.getElementById("month").value,
+
+            year:
+            document.getElementById("year").value
+        })
+    );
+
+    alert("Budget Saved Successfully");
+}
+
+/* Download */
+
+function downloadReport(){
 
     const { jsPDF } = window.jspdf;
 
@@ -142,54 +283,30 @@ function downloadReport(){
     doc.setFontSize(18);
 
     doc.text(
-    "Monthly Budget Report",
-    20,
-    20
+        "BudgetTracker Monthly Report",
+        20,
+        20
     );
 
     doc.setFontSize(12);
 
     doc.text(
-    `Month: ${
-    document.getElementById("month").value
-    }`,
-    20,
-    40
+        document.getElementById("incomeResult").innerText,
+        20,
+        50
     );
 
     doc.text(
-    `Year: ${
-    document.getElementById("year").value
-    }`,
-    20,
-    50
+        document.getElementById("expenseResult").innerText,
+        20,
+        65
     );
 
     doc.text(
-    `Income: ₹${totalIncome}`,
-    20,
-    70
+        document.getElementById("savingResult").innerText,
+        20,
+        80
     );
 
-    doc.text(
-    `Expense: ₹${totalExpense}`,
-    20,
-    80
-    );
-
-    doc.text(
-    `Savings: ₹${savings}`,
-    20,
-    90
-    );
-
-    doc.text(
-    `Saving Rate: ${savingRate.toFixed(2)}%`,
-    20,
-    100
-    );
-
-    doc.save(
-    "MonthlyBudgetReport.pdf"
-    );
+    doc.save("BudgetReport.pdf");
 }

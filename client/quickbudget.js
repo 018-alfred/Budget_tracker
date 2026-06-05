@@ -95,43 +95,58 @@ function generateSummary() {
         </tr>
     `;
 
-    const ctx =
-        document.getElementById("budgetChart");
+    const ctx = document.getElementById("budgetChart");
 
-    if (chart) {
-        chart.destroy();
-    }
+if (chart) {
+    chart.destroy();
+}
 
-    chart = new Chart(ctx, {
+// Get expense labels and amounts
+const labels = expenses.map(expense => expense.label);
+const amounts = expenses.map(expense => expense.amount);
 
-        type: "pie",
+// Colors for categories
+const colors = [
+    "#3b82f6",
+    "#ef4444",
+    "#22c55e",
+    "#f59e0b",
+    "#8b5cf6",
+    "#ec4899",
+    "#14b8a6",
+    "#f97316",
+    "#6366f1",
+    "#84cc16"
+];
 
-        data: {
-            labels: ["Spent", "Remaining"],
+chart = new Chart(ctx, {
+    type: "pie",
 
-            datasets: [{
-                data: [
-                    totalSpent,
-                    remaining
-                ],
+    data: {
+        labels: labels,
 
-                backgroundColor: [
-                    "#ef4444",
-                    "#22c55e"
-                ]
-            }]
-        },
+        datasets: [{
+            data: amounts,
+            backgroundColor: colors.slice(0, labels.length)
+        }]
+    },
 
-        options: {
-            responsive: true,
+    options: {
+        responsive: true,
 
-            plugins: {
-                legend: {
-                    position: "bottom"
-                }
+        plugins: {
+            legend: {
+                position: "bottom"
+            },
+
+            title: {
+                display: true,
+                text: "Expense Breakdown"
             }
         }
-    });
+    }
+});
+
 }
 
 function resetBudget() {

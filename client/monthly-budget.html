@@ -7,6 +7,7 @@
     
     <link rel="icon" type="image/svg+xml" href="image/header logo blueBT.png"> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 </head>
 <body>
@@ -28,18 +29,22 @@
 
 <div class="container">
 
-    <h1>Monthly Budget Planner</h1>
+    <div class="container monthly-layout">
 
-    <!-- Month & Year -->
+    <!-- LEFT SIDE -->
+    <div class="budget-form">
 
-    <div class="card">
+        <h1>Monthly Budget Planner</h1>
 
-        <h2>Budget Period</h2>
+        <div class="card">
 
-        <div class="grid">
+    <h2>📅 Budget Period</h2>
 
+    <div class="grid">
+
+        <div class="input-group">
+            <label>Select Month</label>
             <select id="month">
-
                 <option>January</option>
                 <option>February</option>
                 <option>March</option>
@@ -52,132 +57,220 @@
                 <option>October</option>
                 <option>November</option>
                 <option>December</option>
-
             </select>
+        </div>
 
-            <input type="number"
-                   id="year"
-                   placeholder="Year">
+        <div class="input-group">
+            <label>Year</label>
+            <input type="number" id="year">
+        </div>
+
+    </div>
+
+</div>
+
+        <!-- Income -->
+        <div class="card">
+
+    <h2>💰 Income Sources</h2>
+
+    <div class="grid">
+
+        <div class="input-group">
+            <label for="salary">Salary</label>
+            <input type="number" id="salary">
+        </div>
+
+        <div class="input-group">
+            <label for="business">Business Income</label>
+            <input type="number" id="business">
+        </div>
+
+        <div class="input-group">
+            <label for="freelance">Freelance</label>
+            <input type="number" id="freelance">
+        </div>
+
+        <div class="input-group">
+            <label for="investment">Investment Returns</label>
+            <input type="number" id="investment">
+        </div>
+
+        <div class="input-group">
+            <label for="otherIncome">Other Income</label>
+            <input type="number" id="otherIncome">
+        </div>
+
+    </div>
+
+</div>
+
+        <!-- Expenses -->
+        <div class="card">
+
+    <h2>📊 Monthly Expenses</h2>
+
+    <div class="grid">
+
+        <div class="input-group">
+            <label for="rent">Rent / Housing</label>
+            <input type="number" id="rent">
+        </div>
+
+        <div class="input-group">
+            <label for="food">Food & Groceries</label>
+            <input type="number" id="food">
+        </div>
+
+        <div class="input-group">
+            <label for="transport">Transport</label>
+            <input type="number" id="transport">
+        </div>
+
+        <div class="input-group">
+            <label for="utilities">Utilities</label>
+            <input type="number" id="utilities">
+        </div>
+
+        <div class="input-group">
+            <label for="healthcare">Healthcare</label>
+            <input type="number" id="healthcare">
+        </div>
+
+        <div class="input-group">
+            <label for="education">Education</label>
+            <input type="number" id="education">
+        </div>
+
+        <div class="input-group">
+            <label for="shopping">Shopping</label>
+            <input type="number" id="shopping">
+        </div>
+
+        <div class="input-group">
+            <label for="entertainment">Entertainment</label>
+            <input type="number" id="entertainment">
+        </div>
+
+        <div class="input-group">
+            <label for="insurance">Insurance</label>
+            <input type="number" id="insurance">
+        </div>
+
+        <div class="input-group">
+            <label for="emi">EMI / Loans</label>
+            <input type="number" id="emi">
+        </div>
+
+        <div class="input-group">
+            <label for="others">Other Expenses</label>
+            <input type="number" id="others">
+        </div>
+
+    </div>
+
+</div>
+
+        <div class="button-group">
+
+            <button onclick="calculateBudget()">
+                Calculate
+            </button>
+
+            <button onclick="saveBudget()">
+                Save
+            </button>
+
+            <button onclick="downloadReport()">
+                Download
+            </button>
+
+            <button onclick="resetForm()">
+                Cancel
+            </button>
 
         </div>
 
     </div>
 
-    <!-- Income -->
+    <!-- RIGHT SIDE DASHBOARD -->
+    <aside class="dashboard">
 
-    <div class="card">
+        <div class="balance-card">
 
-        <h2>Income</h2>
+            <h3>Monthly Net Balance</h3>
 
-        <div class="grid">
+            <h1 id="netBalance">₹0</h1>
 
-            <input type="number" id="salary" placeholder="Salary">
-
-            <input type="number" id="business" placeholder="Business">
-
-            <input type="number" id="freelance" placeholder="Freelance">
-
-            <input type="number" id="investment" placeholder="Investment">
-
-            <input type="number" id="otherIncome" placeholder="Other Income">
+            <p id="statusMessage">
+                Enter income and expenses
+            </p>
 
         </div>
 
-    </div>
+        <div class="stats-grid">
 
-    <!-- Expenses -->
+            <div class="stat-box">
+                <h4>Income</h4>
+                <p id="incomeResult">₹0</p>
+            </div>
 
-    <div class="card">
+            <div class="stat-box">
+                <h4>Expenses</h4>
+                <p id="expenseResult">₹0</p>
+            </div>
 
-        <h2>Expenses</h2>
+            <div class="stat-box">
+                <h4>Savings</h4>
+                <p id="savingResult">₹0</p>
+            </div>
 
-        <div class="grid">
-
-            <input type="number" id="rent" placeholder="Rent">
-
-            <input type="number" id="food" placeholder="Food">
-
-            <input type="number" id="transport" placeholder="Transport">
-
-            <input type="number" id="utilities" placeholder="Utilities">
-
-            <input type="number" id="healthcare" placeholder="Healthcare">
-
-            <input type="number" id="education" placeholder="Education">
-
-            <input type="number" id="shopping" placeholder="Shopping">
-
-            <input type="number" id="entertainment" placeholder="Entertainment">
-
-            <input type="number" id="insurance" placeholder="Insurance">
-
-            <input type="number" id="emi" placeholder="EMI / Loans">
-
-            <input type="number" id="others" placeholder="Others">
+            <div class="stat-box">
+                <h4>Saving Rate</h4>
+                <p id="savingRate">0%</p>
+            </div>
 
         </div>
 
-    </div>
+        <!-- Expense Breakdown -->
+        <div class="dashboard-card">
 
-    <!-- Buttons -->
+            <h3>Expense Breakdown</h3>
 
-    <div class="button-group">
-
-        <button onclick="calculateBudget()">
-            Calculate
-        </button>
-
-        <button onclick="saveBudget()">
-            Save
-        </button>
-
-        <button onclick="downloadReport()">
-            Download
-        </button>
-
-        <button onclick="resetForm()">
-            Cancel
-        </button>
-
-    </div>
-
-    <!-- Results -->
-
-    <div class="summary">
-
-        <div class="summary-card">
-
-            <h3>Total Income</h3>
-
-            <p id="incomeResult">₹0</p>
+            <div id="expenseBreakdown"></div>
 
         </div>
 
-        <div class="summary-card">
+        <!-- Pie Chart -->
+        <div class="dashboard-card">
 
-            <h3>Total Expense</h3>
+            <h3>Budget Composition</h3>
 
-            <p id="expenseResult">₹0</p>
-
-        </div>
-
-        <div class="summary-card">
-
-            <h3>Savings</h3>
-
-            <p id="savingResult">₹0</p>
+            <canvas id="pieChart"></canvas>
 
         </div>
 
-        <div class="summary-card">
+        <!-- Bar Chart -->
+        <div class="dashboard-card">
 
-            <h3>Saving Rate</h3>
+            <h3>Income vs Expenses</h3>
 
-            <p id="savingRate">0%</p>
+            <canvas id="barChart"></canvas>
 
         </div>
 
-    </div>
+        <!-- Advice -->
+        <div class="dashboard-card">
+
+            <h3>Budget Analysis</h3>
+
+            <div id="adviceBox">
+                Enter your budget details to get insights.
+            </div>
+
+        </div>
+
+    </aside>
 
 </div>
 

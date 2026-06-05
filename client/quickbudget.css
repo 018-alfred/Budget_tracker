@@ -233,6 +233,16 @@ body{
     width:100%;
     margin:40px auto;
 }
+.chart-container{
+    width: 100%;
+    max-width: 500px;
+    margin: 30px auto;
+}
+
+#budgetChart{
+    width: 100% !important;
+    height: 400px !important;
+}
 
 /* ===========================
    RESPONSIVE
