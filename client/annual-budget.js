@@ -48,18 +48,49 @@ function calculateAnnualBudget(){
     document.getElementById("netBalance").innerText =
         `₹${savings.toLocaleString()}`;
 
-    document.getElementById("statusMessage").innerText =
-        savings >= 0
-        ? "Excellent annual financial performance."
-        : "Expenses exceed annual income.";
+    if(savings > 0){
+        document.getElementById("statusMessage").innerText =
+        "Excellent annual financial performance.";
+    }
+    else if(savings === 0){
+        document.getElementById("statusMessage").innerText =
+        "Income and expenses are balanced.";
+    }
+    else{
+        document.getElementById("statusMessage").innerText =
+        "Expenses exceed annual income.";
+    }
 
     updateBreakdown();
-    createCharts(income, expense);
+
+    createCharts(
+        income,
+        expense
+    );
+
+    let advice = "";
+
+    if(savingRate >= 20){
+
+        advice =
+        "✅ Strong saving rate. Continue investing and growing your wealth.";
+
+    }
+    else if(savingRate >= 10){
+
+        advice =
+        "👍 Good progress. Try increasing savings above 20%.";
+
+    }
+    else{
+
+        advice =
+        "⚠ Consider reducing non-essential expenses and improving savings.";
+
+    }
 
     document.getElementById("adviceBox").innerHTML =
-        savingRate >= 20
-        ? "✅ Strong saving rate. Continue investing and growing your wealth."
-        : "⚠ Try reducing non-essential expenses and improve yearly savings.";
+        advice;
 }
 
 function updateBreakdown(){
@@ -156,60 +187,120 @@ function createCharts(income,expense){
     );
 }
 
-function saveAnnualBudget(){
+function saveAnnualBudget() {
 
-    const budgetData = {
-        year:document.getElementById("year").value,
-        income:document.getElementById("incomeResult").innerText,
-        expense:document.getElementById("expenseResult").innerText,
-        savings:document.getElementById("savingResult").innerText
+    const year =
+    document.getElementById("year").value;
+
+    const totalIncome =
+    Number(document.getElementById("incomeResult")
+    .innerText.replace(/[₹,]/g, ""));
+
+    const totalExpense =
+    Number(document.getElementById("expenseResult")
+    .innerText.replace(/[₹,]/g, ""));
+
+    const savings =
+    Number(document.getElementById("savingResult")
+    .innerText.replace(/[₹,]/g, ""));
+
+    const annualBudget = {
+        year,
+        totalIncome,
+        totalExpense,
+        savings
     };
 
+    let budgets =
+    JSON.parse(
+        localStorage.getItem("annualBudgets")
+    ) || [];
+
+    budgets.push(annualBudget);
+
     localStorage.setItem(
-        "annualBudget",
-        JSON.stringify(budgetData)
+        "annualBudgets",
+        JSON.stringify(budgets)
     );
 
-    alert("Annual Budget Saved");
+    alert("Annual Budget Saved Successfully");
 }
 
-function downloadAnnualReport(){
+
+async function downloadAnnualReport(){
+
+    const reportSection =
+    document.querySelector(".annual-layout");
+
+    const canvas =
+    await html2canvas(reportSection,{
+        scale:2,
+        useCORS:true,
+        backgroundColor:"#ffffff"
+    });
+
+    const imgData =
+    canvas.toDataURL("image/png");
 
     const { jsPDF } = window.jspdf;
 
-    const doc = new jsPDF();
+    const pdf =
+    new jsPDF("p","mm","a4");
 
-    doc.text("Annual Budget Report",20,20);
+    const pageWidth =
+    pdf.internal.pageSize.getWidth();
 
-    doc.text(
-        "Year : " +
-        document.getElementById("year").value,
-        20,
-        35
+    const pageHeight =
+    pdf.internal.pageSize.getHeight();
+
+    const imgWidth =
+    pageWidth;
+
+    const imgHeight =
+    (canvas.height * imgWidth) /
+    canvas.width;
+
+    let heightLeft =
+    imgHeight;
+
+    let position = 0;
+
+    pdf.addImage(
+        imgData,
+        "PNG",
+        0,
+        position,
+        imgWidth,
+        imgHeight
     );
 
-    doc.text(
-        "Income : " +
-        document.getElementById("incomeResult").innerText,
-        20,
-        50
-    );
+    heightLeft -= pageHeight;
 
-    doc.text(
-        "Expenses : " +
-        document.getElementById("expenseResult").innerText,
-        20,
-        65
-    );
+    while(heightLeft > 0){
 
-    doc.text(
-        "Savings : " +
-        document.getElementById("savingResult").innerText,
-        20,
-        80
-    );
+        position =
+        heightLeft - imgHeight;
 
-    doc.save("Annual-Budget-Report.pdf");
+        pdf.addPage();
+
+        pdf.addImage(
+            imgData,
+            "PNG",
+            0,
+            position,
+            imgWidth,
+            imgHeight
+        );
+
+        heightLeft -= pageHeight;
+    }
+
+    const year =
+    document.getElementById("year").value || "Report";
+
+    pdf.save(
+        `AnnualBudget-${year}.pdf`
+    );
 }
 
 function resetAnnualForm(){
@@ -233,4 +324,91 @@ function resetAnnualForm(){
 
     if(pieChart) pieChart.destroy();
     if(barChart) barChart.destroy();
+}
+function loadAnnualBudgets() {
+
+    const container =
+    document.getElementById(
+        "annualBudgetList"
+    );
+
+    const budgets =
+    JSON.parse(
+        localStorage.getItem(
+            "annualBudgets"
+        )
+    ) || [];
+
+    if (!container) return;
+
+    if (budgets.length === 0) {
+
+        container.innerHTML =
+        "<p>No Annual Budgets Saved</p>";
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    budgets.forEach((budget,index) => {
+
+        container.innerHTML += `
+
+        <div class="record-card">
+
+            <div class="record-info">
+
+                <h4>${budget.year}</h4>
+
+                <p>
+                    Income: ₹${budget.totalIncome}
+                </p>
+
+                <p>
+                    Expense: ₹${budget.totalExpense}
+                </p>
+
+                <p>
+                    Savings: ₹${budget.savings}
+                </p>
+
+            </div>
+
+            <div class="record-actions">
+
+                <button
+                    class="btn delete-btn"
+                    onclick="deleteAnnual(${index})">
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+function deleteAnnual(index) {
+
+    let budgets =
+    JSON.parse(
+        localStorage.getItem(
+            "annualBudgets"
+        )
+    ) || [];
+
+    budgets.splice(index,1);
+
+    localStorage.setItem(
+        "annualBudgets",
+        JSON.stringify(budgets)
+    );
+
+    loadAnnualBudgets();
 }

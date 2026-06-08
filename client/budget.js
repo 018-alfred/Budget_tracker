@@ -1,6 +1,21 @@
 loadMonthlyBudgets();
 loadAnnualBudgets();
 
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadMonthlyBudgets();
+        loadAnnualBudgets();
+
+    }
+);
+function loadDashboard() {
+    console.log(
+        JSON.parse(localStorage.getItem("monthlyBudgets"))
+    );
+}
+
 function loadMonthlyBudgets() {
 
     const container =

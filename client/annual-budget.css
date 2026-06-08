@@ -118,6 +118,13 @@ canvas{
     border-radius:10px;
     line-height:1.6;
 }
+.section-note{
+    font-size:0.9rem;
+    color:#666;
+    margin:8px 0 15px;
+    line-height:1.5;
+}
+
 
 @media(max-width:900px){
 

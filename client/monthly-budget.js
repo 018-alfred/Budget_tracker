@@ -256,57 +256,206 @@ function resetForm(){
 
 /* Save */
 
-function saveBudget(){
+function saveBudget() {
+
+    const month =
+    document.getElementById("month").value;
+
+    const year =
+    document.getElementById("year").value;
+
+    const totalIncome =
+    Number(document.getElementById("incomeResult")
+    .innerText.replace(/[₹,]/g, ""));
+
+    const totalExpense =
+    Number(document.getElementById("expenseResult")
+    .innerText.replace(/[₹,]/g, ""));
+
+    const savings =
+    Number(document.getElementById("savingResult")
+    .innerText.replace(/[₹,]/g, ""));
+
+    const budget = {
+        month,
+        year,
+        totalIncome,
+        totalExpense,
+        savings
+    };
+
+    let budgets =
+    JSON.parse(
+        localStorage.getItem("monthlyBudgets")
+    ) || [];
+
+    budgets.push(budget);
 
     localStorage.setItem(
-        "monthlyBudget",
-        JSON.stringify({
-            month:
-            document.getElementById("month").value,
-
-            year:
-            document.getElementById("year").value
-        })
+        "monthlyBudgets",
+        JSON.stringify(budgets)
     );
 
-    alert("Budget Saved Successfully");
+    alert("Monthly Budget Saved Successfully");
 }
 
 /* Download */
 
-function downloadReport(){
+async function downloadReport(){
 
     const { jsPDF } = window.jspdf;
 
-    const doc = new jsPDF();
+    const reportSection =
+    document.querySelector(".container");
 
-    doc.setFontSize(18);
+    const canvas =
+    await html2canvas(reportSection,{
+        scale:2,
+        useCORS:true
+    });
 
-    doc.text(
-        "BudgetTracker Monthly Report",
-        20,
-        20
+    const imgData =
+    canvas.toDataURL("image/png");
+
+    const pdf =
+    new jsPDF("p","mm","a4");
+
+    const pdfWidth =
+    pdf.internal.pageSize.getWidth();
+
+    const pdfHeight =
+    pdf.internal.pageSize.getHeight();
+
+    const imgWidth =
+    pdfWidth;
+
+    const imgHeight =
+    (canvas.height * imgWidth) /
+    canvas.width;
+
+    let heightLeft =
+    imgHeight;
+
+    let position = 0;
+
+    pdf.addImage(
+        imgData,
+        "PNG",
+        0,
+        position,
+        imgWidth,
+        imgHeight
     );
 
-    doc.setFontSize(12);
+    heightLeft -= pdfHeight;
 
-    doc.text(
-        document.getElementById("incomeResult").innerText,
-        20,
-        50
+    while(heightLeft > 0){
+
+        position =
+        heightLeft - imgHeight;
+
+        pdf.addPage();
+
+        pdf.addImage(
+            imgData,
+            "PNG",
+            0,
+            position,
+            imgWidth,
+            imgHeight
+        );
+
+        heightLeft -= pdfHeight;
+    }
+
+    pdf.save("MonthlyBudgetReport.pdf");
+}
+function loadMonthlyBudgets() {
+
+    const container =
+    document.getElementById(
+        "monthlyBudgetList"
     );
 
-    doc.text(
-        document.getElementById("expenseResult").innerText,
-        20,
-        65
+    const budgets =
+    JSON.parse(
+        localStorage.getItem(
+            "monthlyBudgets"
+        )
+    ) || [];
+
+    if (!container) return;
+
+    if (budgets.length === 0) {
+
+        container.innerHTML =
+        "<p>No Monthly Budgets Saved</p>";
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    budgets.forEach((budget,index) => {
+
+        container.innerHTML += `
+
+        <div class="record-card">
+
+            <div class="record-info">
+
+                <h4>
+                    ${budget.month} ${budget.year}
+                </h4>
+
+                <p>
+                    Income: ₹${budget.totalIncome}
+                </p>
+
+                <p>
+                    Expense: ₹${budget.totalExpense}
+                </p>
+
+                <p>
+                    Savings: ₹${budget.savings}
+                </p>
+
+            </div>
+
+            <div class="record-actions">
+
+                <button
+                    class="btn delete-btn"
+                    onclick="deleteMonthly(${index})">
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+function deleteMonthly(index) {
+
+    let budgets =
+    JSON.parse(
+        localStorage.getItem(
+            "monthlyBudgets"
+        )
+    ) || [];
+
+    budgets.splice(index,1);
+
+    localStorage.setItem(
+        "monthlyBudgets",
+        JSON.stringify(budgets)
     );
 
-    doc.text(
-        document.getElementById("savingResult").innerText,
-        20,
-        80
-    );
-
-    doc.save("BudgetReport.pdf");
+    loadMonthlyBudgets();
 }
