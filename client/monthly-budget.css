@@ -266,4 +266,155 @@ canvas{
     .button-group button{
         width:100%;
     }
-}  
+}
+/* ==========================
+   RESPONSIVE IMPROVEMENTS
+========================== */
+
+/* Prevent overflow issues */
+*{
+    box-sizing:border-box;
+}
+
+img,
+video{
+    max-width:100%;
+    height:auto;
+}
+
+/* Make card width flexible */
+.signup-card{
+    width:100%;
+}
+
+/* Tablet Landscape */
+@media screen and (max-width:991px){
+
+    .signup-card{
+        width:90%;
+        margin:auto;
+    }
+
+    .signup-container{
+        min-height:auto;
+    }
+}
+
+/* Mobile Devices */
+@media screen and (max-width:767px){
+
+    .signup-container{
+        min-height:auto;
+    }
+
+    .signup-card{
+        width:100%;
+        max-width:100%;
+    }
+
+    .input-group input{
+        width:100%;
+    }
+
+    .signup-card button{
+        width:100%;
+    }
+
+    .center-brand{
+        width:90%;
+    }
+}
+
+/* Small Mobile Devices */
+@media screen and (max-width:575px){
+
+    .video-side{
+        height:200px;
+    }
+
+    .signup-side{
+        padding:10px;
+    }
+
+    .signup-card{
+        width:100%;
+        padding:18px;
+    }
+
+    .center-brand{
+        width:95%;
+    }
+
+    .center-brand h1{
+        line-height:1.2;
+    }
+
+    .glow-text{
+        width:95%;
+        left:50%;
+        transform:translateX(-50%);
+    }
+
+    .glow-text p{
+        line-height:1.4;
+    }
+
+    .input-group label{
+        font-size:13px;
+    }
+}
+
+/* Very Small Phones (320px - 375px) */
+@media screen and (max-width:375px){
+
+    .video-side{
+        height:180px;
+    }
+
+    .center-brand img{
+        width:50px;
+    }
+
+    .center-brand h1{
+        font-size:1.3rem;
+    }
+
+    .signup-card{
+        padding:15px;
+    }
+
+    .signup-card h2{
+        font-size:1.2rem;
+    }
+
+    .input-group input{
+        padding:10px;
+        font-size:13px;
+    }
+
+    .signup-card button{
+        padding:10px;
+        font-size:13px;
+    }
+
+    .divider{
+        font-size:11px;
+    }
+}
+
+/* Ultra Wide Screens */
+@media screen and (min-width:1400px){
+
+    .signup-card{
+        max-width:500px;
+    }
+
+    .center-brand h1{
+        font-size:3.5rem;
+    }
+
+    .glow-text p{
+        font-size:1.1rem;
+    }
+}
+  

@@ -201,3 +201,197 @@
         padding:25px;
     }
 }
+/* ==========================
+   RESPONSIVE DESIGN
+========================== */
+
+/* Prevent horizontal scrolling */
+html,
+body{
+    width:100%;
+    overflow-x:hidden;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+/* Large Desktop */
+@media screen and (min-width:1400px){
+
+    .login-card{
+        max-width:480px;
+    }
+
+    .glow-text p{
+        font-size:1.3rem;
+    }
+}
+
+/* Laptop */
+@media screen and (max-width:1200px){
+
+    .video-side{
+        width:55%;
+    }
+
+    .login-side{
+        width:45%;
+    }
+
+    .login-card{
+        max-width:400px;
+    }
+}
+
+/* Tablet */
+@media screen and (max-width:992px){
+
+    .container{
+        flex-direction:column;
+    }
+
+    .video-side{
+        width:100%;
+        height:320px;
+    }
+
+    .login-side{
+        width:100%;
+        padding:30px 20px;
+    }
+
+    .login-card{
+        width:100%;
+        max-width:500px;
+        margin:auto;
+    }
+
+    .glow-text{
+        left:20px;
+        bottom:20px;
+    }
+
+    .glow-text p{
+        font-size:1rem;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width:768px){
+
+    .video-side{
+        height:260px;
+    }
+
+    .login-side{
+        padding:20px 15px;
+    }
+
+    .login-card{
+        width:100%;
+        max-width:100%;
+        padding:25px;
+        border-radius:16px;
+    }
+
+    .input-group{
+        margin-bottom:20px;
+    }
+
+    .input-group input{
+        padding:14px;
+        font-size:14px;
+    }
+
+    .login-card button{
+        padding:14px;
+        font-size:15px;
+    }
+
+    .glow-text{
+        left:15px;
+        right:15px;
+        bottom:15px;
+    }
+
+    .glow-text p{
+        font-size:0.9rem;
+        padding:8px 14px;
+        text-align:center;
+    }
+}
+
+/* Small Mobile */
+@media screen and (max-width:576px){
+
+    .video-side{
+        height:220px;
+    }
+
+    .login-side{
+        padding:15px 10px;
+    }
+
+    .login-card{
+        padding:20px;
+        border-radius:14px;
+        box-shadow:0 5px 15px rgba(0,95,252,.1);
+    }
+
+    .input-group input{
+        padding:12px;
+        font-size:14px;
+    }
+
+    .input-group label{
+        font-size:13px;
+    }
+
+    .login-card button{
+        padding:12px;
+        font-size:14px;
+    }
+
+    .signup{
+        font-size:14px;
+    }
+
+    .glow-text{
+        left:10px;
+        right:10px;
+        bottom:10px;
+    }
+
+    .glow-text p{
+        font-size:0.8rem;
+        padding:8px 12px;
+        line-height:1.4;
+    }
+}
+
+/* Extra Small Phones */
+@media screen and (max-width:375px){
+
+    .video-side{
+        height:180px;
+    }
+
+    .login-card{
+        padding:15px;
+    }
+
+    .input-group input{
+        padding:10px;
+        font-size:13px;
+    }
+
+    .login-card button{
+        padding:10px;
+        font-size:13px;
+    }
+
+    .glow-text p{
+        font-size:0.75rem;
+    }
+}

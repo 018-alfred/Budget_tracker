@@ -133,3 +133,207 @@ canvas{
     }
 
 }
+/* ==========================
+   RESPONSIVE IMPROVEMENTS
+========================== */
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    overflow-x:hidden;
+}
+
+/* Large Desktop */
+@media screen and (min-width:1400px){
+
+    .annual-layout{
+        gap:30px;
+    }
+
+    .balance-card h1{
+        font-size:2.5rem;
+    }
+
+    .stat-box p{
+        font-size:24px;
+    }
+}
+
+/* Laptop */
+@media screen and (max-width:1200px){
+
+    .annual-layout{
+        grid-template-columns:1.7fr 1fr;
+        gap:20px;
+    }
+
+    .grid{
+        grid-template-columns:
+        repeat(auto-fit,minmax(200px,1fr));
+    }
+}
+
+/* Tablet */
+@media screen and (max-width:992px){
+
+    .annual-layout{
+        grid-template-columns:1fr;
+    }
+
+    .card,
+    .dashboard-card,
+    .balance-card{
+        padding:18px;
+    }
+
+    .grid{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .stats-grid{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .balance-card h1{
+        font-size:2rem;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width:768px){
+
+    .annual-layout{
+        gap:15px;
+    }
+
+    .card,
+    .dashboard-card,
+    .balance-card{
+        padding:15px;
+        border-radius:12px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .input-group label{
+        font-size:14px;
+    }
+
+    input{
+        padding:10px;
+        font-size:14px;
+    }
+
+    .button-group{
+        flex-direction:column;
+    }
+
+    .button-group button{
+        width:100%;
+        padding:12px;
+    }
+
+    .balance-card h1{
+        font-size:1.8rem;
+    }
+
+    .stat-box{
+        padding:12px;
+    }
+
+    .stat-box p{
+        font-size:18px;
+    }
+
+    #expenseBreakdown div{
+        font-size:14px;
+    }
+
+    .section-note{
+        font-size:0.85rem;
+    }
+}
+
+/* Small Mobile */
+@media screen and (max-width:576px){
+
+    .card,
+    .dashboard-card,
+    .balance-card{
+        padding:12px;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+    .balance-card h1{
+        font-size:1.6rem;
+    }
+
+    .stat-box h4{
+        font-size:14px;
+    }
+
+    .stat-box p{
+        font-size:16px;
+    }
+
+    input{
+        font-size:13px;
+    }
+
+    .button-group button{
+        font-size:14px;
+        padding:10px;
+    }
+
+    #adviceBox{
+        padding:12px;
+        font-size:14px;
+    }
+
+    .section-note{
+        font-size:0.8rem;
+    }
+}
+
+/* Extra Small Phones */
+@media screen and (max-width:375px){
+
+    .balance-card h1{
+        font-size:1.4rem;
+    }
+
+    .stat-box p{
+        font-size:15px;
+    }
+
+    .card,
+    .dashboard-card,
+    .balance-card{
+        padding:10px;
+    }
+
+    .button-group button{
+        font-size:13px;
+    }
+
+    input{
+        padding:8px;
+        font-size:12px;
+    }
+}
+

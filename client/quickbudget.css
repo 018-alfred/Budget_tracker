@@ -284,3 +284,206 @@ body{
         overflow-x:auto;
     }
 }
+
+/* ==========================
+   RESPONSIVE IMPROVEMENTS
+========================== */
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    overflow-x:hidden;
+}
+
+/* Large Desktop */
+@media screen and (min-width:1400px){
+
+    .budget-box,
+    .expense-section{
+        max-width:1000px;
+    }
+
+    .summary-section{
+        max-width:1200px;
+    }
+
+    #budgetChart{
+        height:450px !important;
+    }
+}
+
+/* Laptop */
+@media screen and (max-width:1200px){
+
+    .budget-overview,
+    .expense-section{
+        max-width:95%;
+    }
+
+    .summary-section{
+        max-width:95%;
+    }
+}
+
+/* Tablet */
+@media screen and (max-width:992px){
+
+    .budget-box,
+    .expense-section,
+    .summary-section{
+        padding:25px;
+    }
+
+    .amount-row strong{
+        font-size:1.1rem;
+    }
+
+    #budgetChart{
+        height:350px !important;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width:768px){
+
+    #initialAmount,
+    #expenseLabel,
+    #expenseAmount{
+        width:95%;
+        padding:12px;
+        font-size:15px;
+    }
+
+    .set-btn,
+    .add-btn,
+    .done-btn,
+    .reset-btn{
+        width:95%;
+        min-width:auto;
+        padding:12px;
+    }
+
+    .budget-box,
+    .expense-section,
+    .summary-section{
+        padding:18px;
+        border-radius:15px;
+    }
+
+    .amount-row{
+        flex-direction:column;
+        text-align:center;
+        gap:8px;
+    }
+
+    .amount-row strong{
+        font-size:1rem;
+    }
+
+    .summary-section table{
+        min-width:500px;
+    }
+
+    .summary-section{
+        overflow-x:auto;
+    }
+
+    .chart-container{
+        max-width:100%;
+    }
+
+    #budgetChart{
+        height:300px !important;
+    }
+}
+
+/* Small Mobile */
+@media screen and (max-width:576px){
+
+    .budget-box h3,
+    .expense-section h2,
+    .summary-section h2{
+        font-size:1.3rem;
+    }
+
+    #initialAmount,
+    #expenseLabel,
+    #expenseAmount{
+        font-size:14px;
+        padding:10px;
+    }
+
+    .set-btn,
+    .add-btn,
+    .done-btn,
+    .reset-btn{
+        font-size:14px;
+        padding:10px;
+    }
+
+    .budget-box,
+    .expense-section,
+    .summary-section{
+        padding:15px;
+    }
+
+    .amount-row span{
+        font-size:14px;
+    }
+
+    .amount-row strong{
+        font-size:0.95rem;
+    }
+
+    .summary-section th,
+    .summary-section td{
+        padding:12px 8px;
+        font-size:13px;
+    }
+
+    .progress{
+        height:18px;
+    }
+
+    #budgetChart{
+        height:250px !important;
+    }
+}
+
+/* Extra Small Phones */
+@media screen and (max-width:375px){
+
+    .budget-box,
+    .expense-section,
+    .summary-section{
+        padding:12px;
+    }
+
+    .budget-box h3,
+    .expense-section h2,
+    .summary-section h2{
+        font-size:1.1rem;
+    }
+
+    .summary-section th,
+    .summary-section td{
+        font-size:12px;
+        padding:10px 6px;
+    }
+
+    .amount-row strong{
+        font-size:0.9rem;
+    }
+
+    .progress{
+        height:16px;
+    }
+
+    #budgetChart{
+        height:220px !important;
+    }
+}
+
