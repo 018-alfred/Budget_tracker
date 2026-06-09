@@ -154,6 +154,16 @@
     font-weight:600;
 }
 
+#clerk-signin{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.cl-card{
+    box-shadow:none !important;
+    border:none !important;
+}
 
 
 /* ==========================

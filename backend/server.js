@@ -6,11 +6,6 @@ require("express");
 const cors =
 require("cors");
 
-const connectDB =
-require("./config/db");
-
-connectDB();
-
 const app =
 express();
 
@@ -19,29 +14,30 @@ app.use(cors());
 app.use(express.json());
 
 app.use(
- "/api/auth",
- require("./routes/authRoutes")
-);
-
-app.use(
  "/api/monthly",
  require("./routes/monthlyRoutes")
 );
 
-app.get("/",(req,res)=>{
+app.use(
+ "/api/annual",
+ require("./routes/annualRoutes")
+);
 
- res.send(
- "Budget Tracker API Running"
- );
+app.use(
+ "/api/year",
+ require("./routes/yearRoutes")
+);
 
-});
+app.use(
+ "/api/fiveyear",
+ require("./routes/fiveYearRoutes")
+);
 
 app.listen(
- process.env.PORT,
+ 5000,
  ()=>{
-
- console.log(
-  `Server Running On ${process.env.PORT}`
- );
-
-});
+  console.log(
+   "Server Running"
+  );
+ }
+);

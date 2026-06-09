@@ -5,6 +5,24 @@ let pieChart = null;
 
 loadAnnualBudgets();
 
+document.getElementById("yearSelector")
+.addEventListener("change", function(){
+
+    const selected =
+    Array.from(this.selectedOptions);
+
+    if(selected.length > 5){
+
+        alert(
+        "You can select only 5 years."
+        );
+
+        selected[
+            selected.length - 1
+        ].selected = false;
+    }
+});
+
 function loadAnnualBudgets(){
 
     const annualBudgets =
@@ -30,6 +48,7 @@ function loadAnnualBudgets(){
         `;
     });
 }
+
 
 function generateFiveYearAnalysis(){
 
@@ -233,53 +252,3 @@ savings
     ).innerText = result;
 }
 
-function downloadReport(){
-
-    const { jsPDF } =
-    window.jspdf;
-
-    const doc =
-    new jsPDF();
-
-    doc.text(
-    "5-Year Budget Report",
-    20,
-    20
-    );
-
-    doc.text(
-    document.getElementById(
-    "incomeResult"
-    ).innerText,
-    20,
-    50
-    );
-
-    doc.text(
-    document.getElementById(
-    "expenseResult"
-    ).innerText,
-    20,
-    70
-    );
-
-    doc.text(
-    document.getElementById(
-    "savingResult"
-    ).innerText,
-    20,
-    90
-    );
-
-    doc.text(
-    document.getElementById(
-    "savingRate"
-    ).innerText,
-    20,
-    110
-    );
-
-    doc.save(
-    "FiveYearBudgetReport.pdf"
-    );
-}
