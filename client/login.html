@@ -19,6 +19,7 @@
         <a href="quickbudget.html">Quick Budget</a>
         <a href="login.html">Login</a>
         <a href="signup.html">Sign Up</a>
+        <div id="user-button"></div>
     </nav>
 </header>
 
@@ -42,21 +43,8 @@
     <!-- RIGHT LOGIN SECTION -->
     <div class="login-side">
 
-        <div class="login-card">
-
-            <h2>Welcome Back 👋</h2>
-            <p>Login to continue managing your finances</p>
-
+        
             <div id="clerk-signin"></div>
-            <button id="loginBtn" class="clerk-btn">
-                Login / Sign Up
-            </button>
-
-            <p class="signup">
-                Don't have an account?
-                <a href="signup.html">Sign Up</a>
-            </p>
-
         </div>
 
     </div>
@@ -64,13 +52,17 @@
 </div>
 
 <script
-async
-crossorigin="anonymous"
-data-clerk-publishable-key="pk_test_Z2xvcmlvdXMtbXVsZS03Ni5jbGVyay5hY2NvdW50cy5kZXYk"
-src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js">
+  async
+  crossorigin="anonymous"
+  data-clerk-publishable-key="pk_test_Z2xvcmlvdXMtbXVsZS03Ni5jbGVyay5hY2NvdW50cy5kZXYk"
+  src="https://unpkg.com/@clerk/clerk-js@5/dist/clerk.browser.js">
 </script>
 
-<script src="login.js"></script>
+<script src="auth-state.js"></script>
+
+
+<script src="config.js"></script>
+<script src="clerk-auth.js"></script>
 
 <footer class="footer">
     <div class="footer-container">

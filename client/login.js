@@ -12,8 +12,8 @@ window.addEventListener("DOMContentLoaded", async () => {
         .addEventListener("click", () => {
 
             Clerk.openSignIn({
-                afterSignInUrl: "/client/signup.html",
-                afterSignUpUrl: "/client/login.html"
+                afterSignInUrl: "budget.html",
+                afterSignUpUrl: "budget.html"
             });
 
         });
