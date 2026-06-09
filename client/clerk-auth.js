@@ -2,11 +2,22 @@ window.addEventListener("load", async () => {
   try {
     await Clerk.load();
 
+    // If user is already signed in, redirect away from login/signup
+    if (
+      Clerk.user &&
+      (window.location.pathname.includes("login.html") ||
+       window.location.pathname.includes("signup.html"))
+    ) {
+      window.location.href = "/client/index.html";
+      return;
+    }
+
     const signInDiv = document.getElementById("clerk-signin");
 
     if (signInDiv) {
       Clerk.mountSignIn(signInDiv, {
-        signUpUrl: "signup.html"
+        signUpUrl: "/client/signup.html",
+        afterSignInUrl: "/client/index.html"
       });
     }
 
@@ -14,11 +25,45 @@ window.addEventListener("load", async () => {
 
     if (signUpDiv) {
       Clerk.mountSignUp(signUpDiv, {
-        signInUrl: "login.html"
+        signInUrl: "/client/login.html",
+        afterSignUpUrl: "/client/index.html"
       });
     }
 
-  } catch (error) {
-    console.error(error);
+    // Navbar auth state
+    const authArea = document.getElementById("auth-area");
+
+    if (authArea) {
+      if (Clerk.user) {
+        const username =
+          Clerk.user.firstName ||
+          Clerk.user.username ||
+          Clerk.user.primaryEmailAddress?.emailAddress ||
+          "User";
+
+        authArea.innerHTML = `
+          <span style="margin-right:10px;">Hi, ${username}</span>
+          <button id="logout-btn" style="background:var(--primary);
+    color:white;padding:10px;border-radius:20px;border:none;">Logout</button>
+        `;
+
+        document
+          .getElementById("logout-btn")
+          .addEventListener("click", async () => {
+            await Clerk.signOut();
+
+            window.location.href = "/client/index.html";
+          });
+
+      } else {
+        authArea.innerHTML = `
+          <a href="/client/login.html">Login</a>
+          <a href="/client/signup.html">Sign Up</a>
+        `;
+      }
+    }
+
+  } catch (err) {
+    console.error("Clerk Error:", err);
   }
-});
+});  
