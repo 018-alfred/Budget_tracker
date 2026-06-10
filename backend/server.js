@@ -15,10 +15,10 @@ app.get("/", (req,res)=>{
  });
 });
 
-app.use("/monthly", require("./Routes/monthlyRoutes"));
-app.use("/annual", require("./Routes/annualRoutes"));
-app.use("/year", require("./Routes/yearRoutes"));
-app.use("/fiveyear", require("./Routes/fiveYearRoutes"));
+app.use("/api/monthly", require("./Routes/monthlyRoutes"));
+app.use("/api/annual", require("./Routes/annualRoutes"));
+app.use("/api/year", require("./Routes/yearRoutes"));
+app.use("/api/fiveyear", require("./Routes/fiveYearRoutes"));
 
 const PORT = process.env.PORT || 5000;
 
