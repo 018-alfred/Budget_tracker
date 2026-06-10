@@ -10,7 +10,7 @@ const {
  createBudget,
  updateBudget,
  deleteBudget
-} = require("../controllers/monthlyController");
+} = require("../Controllers/monthlyController");
 
 router.get("/", clerkAuth, getBudgets);
 router.get("/:id", clerkAuth, getBudgetById);
