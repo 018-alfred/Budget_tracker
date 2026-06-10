@@ -1,3 +1,5 @@
+import API_URL from "./api.js";
+
 let pieChart;
 let barChart;
 
@@ -187,45 +189,61 @@ function createCharts(income,expense){
     );
 }
 
-function saveAnnualBudget() {
+async function saveAnnualBudget() {
+
+    const token = await window.getClerkToken();
 
     const year =
     document.getElementById("year").value;
 
     const totalIncome =
-    Number(document.getElementById("incomeResult")
-    .innerText.replace(/[₹,]/g, ""));
-
-    const totalExpense =
-    Number(document.getElementById("expenseResult")
-    .innerText.replace(/[₹,]/g, ""));
-
-    const savings =
-    Number(document.getElementById("savingResult")
-    .innerText.replace(/[₹,]/g, ""));
-
-    const annualBudget = {
-        year,
-        totalIncome,
-        totalExpense,
-        savings
-    };
-
-    let budgets =
-    JSON.parse(
-        localStorage.getItem("annualBudgets")
-    ) || [];
-
-    budgets.push(annualBudget);
-
-    localStorage.setItem(
-        "annualBudgets",
-        JSON.stringify(budgets)
+    Number(
+      document.getElementById("incomeResult")
+      .innerText.replace(/[₹,]/g,"")
     );
 
-    alert("Annual Budget Saved Successfully");
-}
+    const totalExpense =
+    Number(
+      document.getElementById("expenseResult")
+      .innerText.replace(/[₹,]/g,"")
+    );
 
+    const savings =
+    Number(
+      document.getElementById("savingResult")
+      .innerText.replace(/[₹,]/g,"")
+    );
+
+    const response = await fetch(
+      `${API_URL}/annual`,
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":`Bearer ${token}`
+        },
+        body:JSON.stringify({
+          year,
+          totalIncome,
+          totalExpense,
+          savings
+        })
+      }
+    );
+
+    if(response.ok){
+
+      alert("Annual Budget Saved");
+
+      loadAnnualBudgets();
+
+    }else{
+
+      alert("Failed To Save");
+
+    }
+
+}
 
 async function downloadAnnualReport(){
 
@@ -325,90 +343,115 @@ function resetAnnualForm(){
     if(pieChart) pieChart.destroy();
     if(barChart) barChart.destroy();
 }
-function loadAnnualBudgets() {
+async function loadAnnualBudgets() {
+
+    const token =
+    await window.getClerkToken();
 
     const container =
     document.getElementById(
-        "annualBudgetList"
+      "annualBudgetList"
+    );
+
+    if(!container) return;
+
+    const response =
+    await fetch(
+      `${API_URL}/annual`,
+      {
+        headers:{
+          "Authorization":
+          `Bearer ${token}`
+        }
+      }
     );
 
     const budgets =
-    JSON.parse(
-        localStorage.getItem(
-            "annualBudgets"
-        )
-    ) || [];
+    await response.json();
 
-    if (!container) return;
+    if(budgets.length===0){
 
-    if (budgets.length === 0) {
+      container.innerHTML =
+      "<p>No Annual Budgets Saved</p>";
 
-        container.innerHTML =
-        "<p>No Annual Budgets Saved</p>";
+      return;
 
-        return;
     }
 
     container.innerHTML = "";
 
-    budgets.forEach((budget,index) => {
+    budgets.forEach((budget)=>{
 
-        container.innerHTML += `
+      container.innerHTML += `
 
-        <div class="record-card">
+      <div class="record-card">
 
-            <div class="record-info">
+        <div class="record-info">
 
-                <h4>${budget.year}</h4>
+          <h4>${budget.year}</h4>
 
-                <p>
-                    Income: ₹${budget.totalIncome}
-                </p>
+          <p>
+          Income:
+          ₹${budget.total_income}
+          </p>
 
-                <p>
-                    Expense: ₹${budget.totalExpense}
-                </p>
+          <p>
+          Expense:
+          ₹${budget.total_expense}
+          </p>
 
-                <p>
-                    Savings: ₹${budget.savings}
-                </p>
-
-            </div>
-
-            <div class="record-actions">
-
-                <button
-                    class="btn delete-btn"
-                    onclick="deleteAnnual(${index})">
-
-                    Delete
-
-                </button>
-
-            </div>
+          <p>
+          Savings:
+          ₹${budget.savings}
+          </p>
 
         </div>
 
-        `;
+        <div class="record-actions">
+
+          <button
+          class="btn delete-btn"
+          onclick="deleteAnnual(${budget.id})">
+
+          Delete
+
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
 
     });
 
 }
-function deleteAnnual(index) {
 
-    let budgets =
-    JSON.parse(
-        localStorage.getItem(
-            "annualBudgets"
-        )
-    ) || [];
+async function deleteAnnual(id){
 
-    budgets.splice(index,1);
+    const token =
+    await window.getClerkToken();
 
-    localStorage.setItem(
-        "annualBudgets",
-        JSON.stringify(budgets)
+    const response =
+    await fetch(
+      `${API_URL}/annual/${id}`,
+      {
+        method:"DELETE",
+        headers:{
+          "Authorization":
+          `Bearer ${token}`
+        }
+      }
     );
 
-    loadAnnualBudgets();
+    if(response.ok){
+
+      loadAnnualBudgets();
+
+    }else{
+
+      alert("Delete Failed");
+
+    }
+
 }

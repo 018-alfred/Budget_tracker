@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
       (window.location.pathname.includes("login.html") ||
        window.location.pathname.includes("signup.html"))
     ) {
-      window.location.href = "/client/index.html";
+      window.location.href = "/index.html";
       return;
     }
 
@@ -16,8 +16,8 @@ window.addEventListener("load", async () => {
 
     if (signInDiv) {
       Clerk.mountSignIn(signInDiv, {
-        signUpUrl: "/client/signup.html",
-        afterSignInUrl: "/client/index.html"
+        signUpUrl: "/signup.html",
+        afterSignInUrl: "/index.html"
       });
     }
 
@@ -25,8 +25,8 @@ window.addEventListener("load", async () => {
 
     if (signUpDiv) {
       Clerk.mountSignUp(signUpDiv, {
-        signInUrl: "/client/login.html",
-        afterSignUpUrl: "/client/index.html"
+        signInUrl: "/login.html",
+        afterSignUpUrl: "/index.html"
       });
     }
 
@@ -52,13 +52,13 @@ window.addEventListener("load", async () => {
           .addEventListener("click", async () => {
             await Clerk.signOut();
 
-            window.location.href = "/client/index.html";
+            window.location.href = "/index.html";
           });
 
       } else {
         authArea.innerHTML = `
-          <a href="/client/login.html">Login</a>
-          <a href="/client/signup.html">Sign Up</a>
+          <a href="/login.html">Login</a>
+          <a href="/signup.html">Sign Up</a>
         `;
       }
     }

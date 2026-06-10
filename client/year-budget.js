@@ -1,3 +1,4 @@
+import API_URL from "./api.js";
 let selectedBudgets = [];
 
 let barChart = null;
@@ -5,34 +6,72 @@ let pieChart = null;
 
 loadMonths();
 
-function loadMonths(){
+async function loadMonths(){
 
-    const budgets =
-    JSON.parse(
-    localStorage.getItem("monthlyBudgets")
-    ) || [];
+    try{
 
-    const selector =
-    document.getElementById("monthSelector");
+        const token =
+        await window.getClerkToken();
 
-    selector.innerHTML = "";
+        const response =
+        await fetch(
+            `${API_URL}/monthly`,
+            {
+                headers:{
+                    Authorization:
+                    `Bearer ${token}`
+                }
+            }
+        );
 
-    budgets.forEach((budget,index)=>{
+        const budgets =
+        await response.json();
 
-        selector.innerHTML += `
-        <option value="${index}">
-            ${budget.month} ${budget.year}
-        </option>
-        `;
-    });
+        const selector =
+        document.getElementById(
+            "monthSelector"
+        );
+
+        selector.innerHTML = "";
+
+        budgets.forEach((budget)=>{
+
+            selector.innerHTML += `
+            <option value="${budget.id}">
+                ${budget.month}
+                ${budget.year}
+            </option>
+            `;
+
+        });
+
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
+
 }
 
 function generateYearAnalysis(){
 
-    const budgets =
-    JSON.parse(
-    localStorage.getItem("monthlyBudgets")
-    ) || [];
+    const token =
+await window.getClerkToken();
+
+const response =
+await fetch(
+    `${API_URL}/monthly`,
+    {
+        headers:{
+            Authorization:
+            `Bearer ${token}`
+        }
+    }
+);
+
+const budgets =
+await response.json();
 
     const options =
     document.getElementById("monthSelector")
@@ -42,9 +81,15 @@ function generateYearAnalysis(){
 
     for(let option of options){
 
-        selectedBudgets.push(
-            budgets[option.value]
-        );
+        const budget =
+budgets.find(
+    b => b.id == option.value
+);
+
+if(budget){
+    selectedBudgets.push(budget);
+}
+
     }
 
     if(selectedBudgets.length === 0){
@@ -205,61 +250,95 @@ savings
     });
 }
 
-function saveAnnualBudget(){
+async function saveAnnualBudget(){
 
-    if(selectedBudgets.length === 0){
+    try{
 
-        alert(
-        "Generate analysis first"
+        if(
+            selectedBudgets.length === 0
+        ){
+            alert(
+            "Generate analysis first"
+            );
+            return;
+        }
+
+        let totalIncome = 0;
+        let totalExpense = 0;
+        let totalSavings = 0;
+
+        selectedBudgets.forEach(
+        budget=>{
+
+            totalIncome +=
+            Number(
+            budget.total_income
+            );
+
+            totalExpense +=
+            Number(
+            budget.total_expense
+            );
+
+            totalSavings +=
+            Number(
+            budget.savings
+            );
+
+        });
+
+        const token =
+        await window.getClerkToken();
+
+        const response =
+        await fetch(
+            `${API_URL}/annual`,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":
+                    "application/json",
+                    Authorization:
+                    `Bearer ${token}`
+                },
+                body:JSON.stringify({
+                    year:
+                    new Date()
+                    .getFullYear(),
+
+                    totalIncome,
+                    totalExpense,
+                    savings:
+                    totalSavings
+                })
+            }
         );
 
-        return;
+        if(!response.ok){
+
+            throw new Error(
+            "Save Failed"
+            );
+
+        }
+
+        alert(
+        "Annual Budget Saved"
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+        "Failed To Save"
+        );
+
     }
 
-    let totalIncome = 0;
-    let totalExpense = 0;
-    let totalSavings = 0;
-
-    selectedBudgets.forEach(budget=>{
-
-        totalIncome += budget.totalIncome;
-        totalExpense += budget.totalExpense;
-        totalSavings += budget.savings;
-
-    });
-
-    const annualBudget = {
-
-        year:
-        new Date().getFullYear(),
-
-        totalIncome,
-
-        totalExpense,
-
-        savings:
-        totalSavings
-    };
-
-    const annualBudgets =
-
-    JSON.parse(
-    localStorage.getItem(
-    "annualBudgets"
-    )) || [];
-
-    annualBudgets.push(
-        annualBudget
-    );
-
-    localStorage.setItem(
-        "annualBudgets",
-        JSON.stringify(
-            annualBudgets
-        )
-    );
-
-    alert(
-    "Annual Budget Saved"
-    );
 }
+window.addEventListener(
+    "load",
+    loadMonths
+);

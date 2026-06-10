@@ -1,3 +1,4 @@
+import API_URL from "./api.js";
 let selectedYears = [];
 
 let barChart = null;
@@ -23,41 +24,63 @@ document.getElementById("yearSelector")
     }
 });
 
-function loadAnnualBudgets(){
+async function loadAnnualBudgets(){
+
+    const token =
+    await window.getClerkToken();
+
+    const response =
+    await fetch(
+        `${API_URL}/annual`,
+        {
+            headers:{
+                Authorization:
+                `Bearer ${token}`
+            }
+        }
+    );
 
     const annualBudgets =
-    JSON.parse(
-        localStorage.getItem(
-        "annualBudgets"
-        )
-    ) || [];
+    await response.json();
 
     const selector =
     document.getElementById(
-    "yearSelector"
+        "yearSelector"
     );
 
     selector.innerHTML = "";
 
-    annualBudgets.forEach((budget,index)=>{
+    annualBudgets.forEach(
+    (budget)=>{
 
         selector.innerHTML += `
-        <option value="${index}">
+        <option value="${budget.id}">
             ${budget.year}
         </option>
         `;
+
     });
+
 }
 
+async function generateFiveYearAnalysis(){
 
-function generateFiveYearAnalysis(){
+    const token =
+await window.getClerkToken();
 
-    const annualBudgets =
-    JSON.parse(
-        localStorage.getItem(
-        "annualBudgets"
-        )
-    ) || [];
+const response =
+await fetch(
+ `${API_URL}/annual`,
+ {
+  headers:{
+   Authorization:
+   `Bearer ${token}`
+  }
+ }
+);
+
+const annualBudgets =
+await response.json();
 
     const options =
     document.getElementById(
@@ -252,3 +275,53 @@ savings
     ).innerText = result;
 }
 
+async function saveFiveYearAnalysis(){
+
+ const token =
+ await window.getClerkToken();
+
+ const data = {
+  totalIncome:
+  document
+  .getElementById(
+   "incomeResult"
+  )
+  .innerText
+  .replace(/[₹,]/g,""),
+
+  totalExpense:
+  document
+  .getElementById(
+   "expenseResult"
+  )
+  .innerText
+  .replace(/[₹,]/g,""),
+
+  savings:
+  document
+  .getElementById(
+   "savingResult"
+  )
+  .innerText
+  .replace(/[₹,]/g,"")
+ };
+
+ await fetch(
+ `${API_URL}/fiveyear`,
+ {
+  method:"POST",
+  headers:{
+   "Content-Type":
+   "application/json",
+   Authorization:
+   `Bearer ${token}`
+  },
+  body:JSON.stringify(data)
+ }
+ );
+
+ alert(
+ "Five Year Analysis Saved"
+ );
+
+}

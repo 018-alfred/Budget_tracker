@@ -1,3 +1,5 @@
+import API_URL from "./api.js";
+
 let pieChart;
 let barChart;
 
@@ -256,49 +258,79 @@ function resetForm(){
 
 /* Save */
 
-function saveBudget() {
+async function saveBudget() {
 
-    const month =
-    document.getElementById("month").value;
+    try {
 
-    const year =
-    document.getElementById("year").value;
+        const token =
+        await window.getClerkToken();
 
-    const totalIncome =
-    Number(document.getElementById("incomeResult")
-    .innerText.replace(/[₹,]/g, ""));
+        if (!token) {
+            alert("Please login first");
+            return;
+        }
 
-    const totalExpense =
-    Number(document.getElementById("expenseResult")
-    .innerText.replace(/[₹,]/g, ""));
+        const month =
+        document.getElementById("month").value;
 
-    const savings =
-    Number(document.getElementById("savingResult")
-    .innerText.replace(/[₹,]/g, ""));
+        const year =
+        document.getElementById("year").value;
 
-    const budget = {
-        month,
-        year,
-        totalIncome,
-        totalExpense,
-        savings
-    };
+        const totalIncome =
+        Number(
+            document.getElementById("incomeResult")
+            .innerText.replace(/[₹,]/g, "")
+        );
 
-    let budgets =
-    JSON.parse(
-        localStorage.getItem("monthlyBudgets")
-    ) || [];
+        const totalExpense =
+        Number(
+            document.getElementById("expenseResult")
+            .innerText.replace(/[₹,]/g, "")
+        );
 
-    budgets.push(budget);
+        const savings =
+        Number(
+            document.getElementById("savingResult")
+            .innerText.replace(/[₹,]/g, "")
+        );
 
-    localStorage.setItem(
-        "monthlyBudgets",
-        JSON.stringify(budgets)
-    );
+        const response =
+        await fetch(
+            `${API_URL}/monthly`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    month,
+                    year,
+                    totalIncome,
+                    totalExpense,
+                    savings
+                })
+            }
+        );
 
-    alert("Monthly Budget Saved Successfully");
+        if (!response.ok) {
+            throw new Error("Failed to save");
+        }
+
+        alert("Monthly Budget Saved Successfully");
+
+        loadMonthlyBudgets();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert("Save Failed");
+
+    }
+
 }
-
 /* Download */
 
 async function downloadReport(){
@@ -370,92 +402,136 @@ async function downloadReport(){
 
     pdf.save("MonthlyBudgetReport.pdf");
 }
-function loadMonthlyBudgets() {
+async function loadMonthlyBudgets() {
 
-    const container =
-    document.getElementById(
-        "monthlyBudgetList"
-    );
+    try {
 
-    const budgets =
-    JSON.parse(
-        localStorage.getItem(
-            "monthlyBudgets"
-        )
-    ) || [];
+        const token =
+        await window.getClerkToken();
 
-    if (!container) return;
+        const container =
+        document.getElementById(
+            "monthlyBudgetList"
+        );
 
-    if (budgets.length === 0) {
+        if (!container) return;
 
-        container.innerHTML =
-        "<p>No Monthly Budgets Saved</p>";
+        const response =
+        await fetch(
+            `${API_URL}/monthly`,
+            {
+                headers: {
+                    Authorization:
+                    `Bearer ${token}`
+                }
+            }
+        );
 
-        return;
+        const budgets =
+        await response.json();
+
+        if (budgets.length === 0) {
+
+            container.innerHTML =
+            "<p>No Monthly Budgets Saved</p>";
+
+            return;
+        }
+
+        container.innerHTML = "";
+
+        budgets.forEach((budget) => {
+
+            container.innerHTML += `
+
+            <div class="record-card">
+
+                <div class="record-info">
+
+                    <h4>
+                        ${budget.month}
+                        ${budget.year}
+                    </h4>
+
+                    <p>
+                        Income:
+                        ₹${budget.total_income}
+                    </p>
+
+                    <p>
+                        Expense:
+                        ₹${budget.total_expense}
+                    </p>
+
+                    <p>
+                        Savings:
+                        ₹${budget.savings}
+                    </p>
+
+                </div>
+
+                <div class="record-actions">
+
+                    <button
+                        class="btn delete-btn"
+                        onclick="deleteMonthly(${budget.id})">
+
+                        Delete
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        });
+
+    }
+    catch(error){
+
+        console.error(error);
+
     }
 
-    container.innerHTML = "";
+}
+async function deleteMonthly(id) {
 
-    budgets.forEach((budget,index) => {
+    try {
 
-        container.innerHTML += `
+        const token =
+        await window.getClerkToken();
 
-        <div class="record-card">
+        const response =
+        await fetch(
+            `${API_URL}/monthly/${id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    Authorization:
+                    `Bearer ${token}`
+                }
+            }
+        );
 
-            <div class="record-info">
+        if (!response.ok) {
+            throw new Error("Delete failed");
+        }
 
-                <h4>
-                    ${budget.month} ${budget.year}
-                </h4>
+        loadMonthlyBudgets();
 
-                <p>
-                    Income: ₹${budget.totalIncome}
-                </p>
+    }
+    catch(error){
 
-                <p>
-                    Expense: ₹${budget.totalExpense}
-                </p>
+        console.error(error);
 
-                <p>
-                    Savings: ₹${budget.savings}
-                </p>
+        alert("Delete Failed");
 
-            </div>
-
-            <div class="record-actions">
-
-                <button
-                    class="btn delete-btn"
-                    onclick="deleteMonthly(${index})">
-
-                    Delete
-
-                </button>
-
-            </div>
-
-        </div>
-
-        `;
-
-    });
+    }
 
 }
-function deleteMonthly(index) {
-
-    let budgets =
-    JSON.parse(
-        localStorage.getItem(
-            "monthlyBudgets"
-        )
-    ) || [];
-
-    budgets.splice(index,1);
-
-    localStorage.setItem(
-        "monthlyBudgets",
-        JSON.stringify(budgets)
-    );
-
-    loadMonthlyBudgets();
-}
+window.addEventListener(
+    "load",
+    loadMonthlyBudgets
+);
