@@ -8,11 +8,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req,res)=>{
- res.json({
-  success:true,
-  message:"Budget Tracker API Running"
- });
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "Budget Tracker API Running"
+  });
 });
 
 app.use("/api/monthly", require("./Routes/monthlyRoutes"));
@@ -20,8 +20,4 @@ app.use("/api/annual", require("./Routes/annualRoutes"));
 app.use("/api/year", require("./Routes/yearRoutes"));
 app.use("/api/fiveyear", require("./Routes/fiveYearRoutes"));
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, ()=>{
- console.log(`Server running on ${PORT}`);
-});
+module.exports = app;
