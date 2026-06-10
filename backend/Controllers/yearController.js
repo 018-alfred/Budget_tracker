@@ -9,12 +9,12 @@ exports.getBudgets = async (req,res)=>{
 
   const { data,error } =
   await supabase
-  .from("monthly_budgets")
-.select("*")
-.eq("user_id", req.userId)
-.order("created_at",{
- ascending:false
-});
+  .from("year_budgets")
+  .select("*")
+  .eq("user_id", req.userId)
+  .order("created_at",{
+   ascending:false
+  });
 
   if(error) throw error;
 
@@ -39,11 +39,11 @@ exports.getBudgetById = async(req,res)=>{
 
   const { data,error } =
   await supabase
-  .from("monthly_budgets")
+  .from("year_budgets")
   .select("*")
   .eq("id",req.params.id)
-.eq("user_id",req.userId)
-.single();
+  .eq("user_id",req.userId)
+  .single();
 
   if(error) throw error;
 
@@ -67,7 +67,6 @@ exports.createBudget = async(req,res)=>{
  try{
 
   const {
-   month,
    year,
    totalIncome,
    totalExpense,
@@ -76,19 +75,20 @@ exports.createBudget = async(req,res)=>{
 
   const { data,error } =
   await supabase
-  .from("monthly_budgets")
+  .from("year_budgets")
   .insert([
- {
-  user_id: req.userId,
+   {
+    user_id:req.userId,
 
-  month,
-  year,
+    year,
 
-  total_income: totalIncome,
-  total_expense: totalExpense,
-  savings
- }
-])
+    total_income:totalIncome,
+
+    total_expense:totalExpense,
+
+    savings
+   }
+  ])
   .select();
 
   if(error) throw error;
@@ -113,7 +113,6 @@ exports.updateBudget = async(req,res)=>{
  try{
 
   const {
-   month,
    year,
    totalIncome,
    totalExpense,
@@ -122,17 +121,16 @@ exports.updateBudget = async(req,res)=>{
 
   const { data,error } =
   await supabase
-  .from("monthly_budgets")
+  .from("year_budgets")
   .update({
-   month,
    year,
-   total_income: totalIncome,
-   total_expense: totalExpense,
+   total_income:totalIncome,
+   total_expense:totalExpense,
    savings
   })
   .eq("id",req.params.id)
-.eq("user_id",req.userId)
-.select();
+  .eq("user_id",req.userId)
+  .select();
 
   if(error) throw error;
 
@@ -157,10 +155,11 @@ exports.deleteBudget = async(req,res)=>{
 
   const { error } =
   await supabase
-  .from("monthly_budgets")
+  .from("year_budgets")
   .delete()
-.eq("id",req.params.id)
-.eq("user_id",req.userId);
+  .eq("id",req.params.id)
+  .eq("user_id",req.userId);
+
   if(error) throw error;
 
   res.status(200).json({

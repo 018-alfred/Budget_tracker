@@ -1,161 +1,150 @@
-const AnnualBudget =
-require("../models/AnnualBudget");
+const supabase =
+require("../Config/supabase");
 
-exports.createBudget =
-async (req, res) => {
+/* GET ALL */
 
-  try {
+exports.getBudgets = async (req,res)=>{
 
-    const budget =
-    await AnnualBudget.create({
+ try{
 
-      user: req.userId,
+  const { data,error } =
+  await supabase
+  .from("annual_budgets")
+  .select("*")
+  .eq("user_id", req.userId);
 
-      ...req.body
+  if(error) throw error;
 
-    });
+  res.json(data);
 
-    res.status(201).json(budget);
+ }
+ catch(error){
 
-  } catch (error) {
+  res.status(500).json({
+   message:error.message
+  });
 
-    res.status(500).json({
-      message: error.message
-    });
-
-  }
-
-};
-
-exports.getBudgets =
-async (req, res) => {
-
-  try {
-
-    const budgets =
-    await AnnualBudget.find({
-
-      user: req.userId
-
-    });
-
-    res.json(budgets);
-
-  } catch (error) {
-
-    res.status(500).json({
-      message: error.message
-    });
-
-  }
+ }
 
 };
 
-exports.getBudgetById =
-async (req, res) => {
+/* GET ONE */
 
-  try {
+exports.getBudgetById = async(req,res)=>{
 
-    const budget =
-    await AnnualBudget.findOne({
+ try{
 
-      _id: req.params.id,
-      user: req.userId
+  const { data,error } =
+  await supabase
+  .from("annual_budgets")
+  .select("*")
+  .eq("id",req.params.id)
+  .eq("user_id",req.userId)
+  .single();
 
-    });
+  if(error) throw error;
 
-    if (!budget) {
+  res.json(data);
 
-      return res.status(404).json({
-        message: "Budget not found"
-      });
+ }
+ catch(error){
 
-    }
+  res.status(500).json({
+   message:error.message
+  });
 
-    res.json(budget);
-
-  } catch (error) {
-
-    res.status(500).json({
-      message: error.message
-    });
-
-  }
+ }
 
 };
 
-exports.updateBudget =
-async (req, res) => {
+/* CREATE */
 
-  try {
+exports.createBudget = async(req,res)=>{
 
-    const budget =
-    await AnnualBudget.findOneAndUpdate(
+ try{
 
-      {
-        _id: req.params.id,
-        user: req.userId
-      },
+  const { data,error } =
+  await supabase
+  .from("annual_budgets")
+  .insert([
+   {
+    user_id:req.userId,
+    ...req.body
+   }
+  ])
+  .select();
 
-      req.body,
+  if(error) throw error;
 
-      {
-        new: true
-      }
+  res.status(201).json(data[0]);
 
-    );
+ }
+ catch(error){
 
-    if (!budget) {
+  res.status(500).json({
+   message:error.message
+  });
 
-      return res.status(404).json({
-        message: "Budget not found"
-      });
-
-    }
-
-    res.json(budget);
-
-  } catch (error) {
-
-    res.status(500).json({
-      message: error.message
-    });
-
-  }
+ }
 
 };
 
-exports.deleteBudget =
-async (req, res) => {
+/* UPDATE */
 
-  try {
+exports.updateBudget = async(req,res)=>{
 
-    const budget =
-    await AnnualBudget.findOneAndDelete({
+ try{
 
-      _id: req.params.id,
-      user: req.userId
+  const { data,error } =
+  await supabase
+  .from("annual_budgets")
+  .update(req.body)
+  .eq("id",req.params.id)
+  .eq("user_id",req.userId)
+  .select();
 
-    });
+  if(error) throw error;
 
-    if (!budget) {
+  res.json(data[0]);
 
-      return res.status(404).json({
-        message: "Budget not found"
-      });
+ }
+ catch(error){
 
-    }
+  res.status(500).json({
+   message:error.message
+  });
 
-    res.json({
-      message: "Budget deleted successfully"
-    });
+ }
 
-  } catch (error) {
+};
 
-    res.status(500).json({
-      message: error.message
-    });
+/* DELETE */
 
-  }
+exports.deleteBudget = async(req,res)=>{
+
+ try{
+
+  const { error } =
+  await supabase
+  .from("annual_budgets")
+  .delete()
+  .eq("id",req.params.id)
+  .eq("user_id",req.userId);
+
+  if(error) throw error;
+
+  res.status(200).json({
+   success:true,
+   message:"Budget deleted successfully"
+  });
+
+ }
+ catch(error){
+
+  res.status(500).json({
+   message:error.message
+  });
+
+ }
 
 };

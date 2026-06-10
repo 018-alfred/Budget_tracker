@@ -1,38 +1,21 @@
-const express =
-require("express");
+const express = require("express");
+const router = express.Router();
 
-const router =
-express.Router();
+const clerkAuth =
+require("../middleware/clerkAuth");
 
-const auth =
-require("../middleware/authMiddleware");
+const {
+ getBudgets,
+ getBudgetById,
+ createBudget,
+ updateBudget,
+ deleteBudget
+} = require("../controllers/monthlyController");
 
-const controller =
-require("../controllers/monthlyController");
+router.get("/", clerkAuth, getBudgets);
+router.get("/:id", clerkAuth, getBudgetById);
+router.post("/", clerkAuth, createBudget);
+router.put("/:id", clerkAuth, updateBudget);
+router.delete("/:id", clerkAuth, deleteBudget);
 
-router.get(
- "/",
- auth,
- controller.getBudgets
-);
-
-router.post(
- "/",
- auth,
- controller.createBudget
-);
-
-router.put(
- "/:id",
- auth,
- controller.updateBudget
-);
-
-router.delete(
- "/:id",
- auth,
- controller.deleteBudget
-);
-
-module.exports =
-router;
+module.exports = router;

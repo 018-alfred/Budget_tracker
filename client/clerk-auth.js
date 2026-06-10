@@ -67,3 +67,27 @@ window.addEventListener("load", async () => {
     console.error("Clerk Error:", err);
   }
 });  
+window.getClerkToken = async function () {
+
+  try {
+
+    if (!Clerk.session) {
+      return null;
+    }
+
+    const token =
+    await Clerk.session.getToken();
+
+    return token;
+
+  } catch (error) {
+
+    console.error(
+      "Token Error:",
+      error
+    );
+
+    return null;
+  }
+
+};

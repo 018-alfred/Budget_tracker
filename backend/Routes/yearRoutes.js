@@ -5,12 +5,12 @@ const clerkAuth =
 require("../middleware/clerkAuth");
 
 const {
- createBudget,
  getBudgets,
  getBudgetById,
+ createBudget,
  updateBudget,
  deleteBudget
-} = require("../controllers/annualController");
+} = require("../controllers/yearController");
 
 router.get("/", clerkAuth, getBudgets);
 router.get("/:id", clerkAuth, getBudgetById);

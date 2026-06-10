@@ -1,24 +1,21 @@
 const express = require("express");
 const router = express.Router();
 
-const authMiddleware = require("../middleware/authMiddleware");
+const clerkAuth =
+require("../middleware/clerkAuth");
 
 const {
-  createBudget,
-  getBudgets,
-  getBudgetById,
-  updateBudget,
-  deleteBudget
-} = require("../controllers/fiveYearController");
+ getBudgets,
+ getBudgetById,
+ createBudget,
+ updateBudget,
+ deleteBudget
+} = require("../Controllers/fiveYearController");
 
-router.get("/", authMiddleware, getBudgets);
-
-router.get("/:id", authMiddleware, getBudgetById);
-
-router.post("/", authMiddleware, createBudget);
-
-router.put("/:id", authMiddleware, updateBudget);
-
-router.delete("/:id", authMiddleware, deleteBudget);
+router.get("/", clerkAuth, getBudgets);
+router.get("/:id", clerkAuth, getBudgetById);
+router.post("/", clerkAuth, createBudget);
+router.put("/:id", clerkAuth, updateBudget);
+router.delete("/:id", clerkAuth, deleteBudget);
 
 module.exports = router;
