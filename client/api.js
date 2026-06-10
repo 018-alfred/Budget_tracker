@@ -1,3 +1,3 @@
-const API_URL = "https://budget-tracker-omega-ashen.vercel.app/";
+const API_URL = "https://budget-tracker-omega-ashen.vercel.app/api";
 
-export default API_URL;
+window.API_URL = API_URL;

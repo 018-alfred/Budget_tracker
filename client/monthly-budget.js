@@ -1,4 +1,4 @@
-import API_URL from "./api.js";
+const API_URL = window.API_URL;
 
 let pieChart;
 let barChart;

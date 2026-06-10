@@ -1,4 +1,5 @@
-import API_URL from "./api.js";
+const API_URL = window.API_URL;
+
 let selectedYears = [];
 
 let barChart = null;
