@@ -415,6 +415,9 @@ async function loadMonthlyBudgets() {
         );
 
         if (!container) return;
+        console.log("API URL:", `${API_URL}/monthly`);
+console.log("TOKEN:", token);
+console.log("DATA:", budgetData);
 
         const response =
         await fetch(
