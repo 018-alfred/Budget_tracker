@@ -66,37 +66,17 @@ exports.createBudget = async(req,res)=>{
 
  try{
 
-  const {
-   month,
-   year,
-   totalIncome,
-   totalExpense,
-   savings
-  } = req.body;
+  console.log("REQ USER:", req.userId);
+  console.log("REQ BODY:", req.body);
 
-  const { data,error } =
-  await supabase
-  .from("monthly_budgets")
-  .insert([
- {
-  user_id: req.userId,
-
-  month,
-  year,
-
-  total_income: totalIncome,
-  total_expense: totalExpense,
-  savings
- }
-])
-  .select();
-
-  if(error) throw error;
-
-  res.status(201).json(data[0]);
+  res.json({
+    success:true
+  });
 
  }
  catch(error){
+
+  console.error(error);
 
   res.status(500).json({
    message:error.message
@@ -105,7 +85,6 @@ exports.createBudget = async(req,res)=>{
  }
 
 };
-
 /* UPDATE */
 
 exports.updateBudget = async(req,res)=>{
