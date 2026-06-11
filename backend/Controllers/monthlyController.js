@@ -68,6 +68,8 @@ exports.createBudget = async(req,res)=>{
 
   console.log("USER:", req.userId);
   console.log("BODY:", req.body);
+  console.log("DATA:", data);
+console.log("ERROR:", error);
 
   const {
    month,
