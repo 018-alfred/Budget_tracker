@@ -16,76 +16,83 @@ function loadDashboard() {
     );
 }
 
-function loadMonthlyBudgets() {
+async function loadMonthlyBudgets() {
 
-    const container =
-    document.getElementById(
-    "monthlyBudgetList"
-    );
+    try {
 
-    const budgets =
-    JSON.parse(
-    localStorage.getItem(
-    "monthlyBudgets"
-    )) || [];
+        const token =
+        await window.getClerkToken();
 
-    if(budgets.length === 0){
+        const response =
+        await fetch(
+            `${API_URL}/monthly`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
 
-        container.innerHTML = `
-        <p>No Monthly Budgets Saved</p>
-        `;
+        const budgets =
+        await response.json();
 
-        return;
+        const container =
+        document.getElementById(
+            "monthlyBudgetList"
+        );
+
+        if (budgets.length === 0) {
+
+            container.innerHTML =
+            "<p>No Monthly Budgets Saved</p>";
+
+            return;
+        }
+
+        container.innerHTML = "";
+
+        budgets.forEach((budget) => {
+
+            container.innerHTML += `
+
+            <div class="record-card">
+
+                <div class="record-info">
+
+                    <h4>
+                        ${budget.month}
+                        ${budget.year}
+                    </h4>
+
+                    <p>
+                        Income:
+                        ₹${budget.total_income}
+                    </p>
+
+                    <p>
+                        Expense:
+                        ₹${budget.total_expense}
+                    </p>
+
+                    <p>
+                        Savings:
+                        ₹${budget.savings}
+                    </p>
+
+                </div>
+
+            </div>
+
+            `;
+        });
+
+    }
+    catch(error){
+
+        console.error(error);
+
     }
 
-    container.innerHTML = "";
-
-    budgets.forEach((budget,index)=>{
-
-        container.innerHTML += `
-
-        <div class="record-card">
-
-            <div class="record-info">
-
-                <h4>
-                ${budget.month}
-                ${budget.year}
-                </h4>
-
-                <p>
-                Income:
-                ₹${budget.totalIncome}
-                </p>
-
-                <p>
-                Expense:
-                ₹${budget.totalExpense}
-                </p>
-
-                <p>
-                Savings:
-                ₹${budget.savings}
-                </p>
-
-            </div>
-
-            <div class="record-actions">
-
-                <button
-                class="btn delete-btn"
-                onclick="deleteMonthly(${index})">
-
-                Delete
-
-                </button>
-
-            </div>
-
-        </div>
-
-        `;
-    });
 }
 
 function deleteMonthly(index){
