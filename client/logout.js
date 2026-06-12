@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
       try {
         await Clerk.signOut();
 
-        window.location.href = "/client/index.html";
+        window.location.href = "/";
       } catch (err) {
         console.error("Logout failed:", err);
       }
