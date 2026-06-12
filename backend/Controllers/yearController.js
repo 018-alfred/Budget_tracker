@@ -90,6 +90,8 @@ exports.createBudget = async(req,res)=>{
    }
   ])
   .select();
+  console.log("INSERTED:", data);
+console.log("ERROR:", error);
 
   if(error) throw error;
 
