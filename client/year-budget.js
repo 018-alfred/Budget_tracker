@@ -23,27 +23,31 @@ async function loadMonths(){
 
     try{
 
-        const token =
-        await window.getClerkToken();
+        const token = await window.getClerkToken();
 
-        const response =
-        await fetch(
+        if(!token){
+            console.log("No token yet");
+            return;
+        }
+
+        const response = await fetch(
             `${API_URL}/monthly`,
             {
                 headers:{
-                    Authorization:
-                    `Bearer ${token}`
+                    Authorization:`Bearer ${token}`
                 }
             }
         );
 
-        const budgets =
-        await response.json();
+        const budgets = await response.json();
+
+        if(!Array.isArray(budgets)){
+            console.error("Invalid response:", budgets);
+            return;
+        }
 
         const selector =
-        document.getElementById(
-            "monthSelector"
-        );
+        document.getElementById("monthSelector");
 
         selector.innerHTML = "";
 
@@ -51,8 +55,7 @@ async function loadMonths(){
 
             selector.innerHTML += `
             <option value="${budget.id}">
-                ${budget.month}
-                ${budget.year}
+                ${budget.month} ${budget.year}
             </option>
             `;
 
@@ -61,11 +64,12 @@ async function loadMonths(){
     }
     catch(error){
 
-        console.error(error);
+        console.error("Load Months Error:", error);
 
     }
 
 }
+
 
 async function generateYearAnalysis() {
 
