@@ -67,31 +67,25 @@ window.addEventListener("load", async () => {
     console.error("Clerk Error:", err);
   }
 });  
+
 window.getClerkToken = async function () {
 
   try {
 
-    console.log("Clerk:", Clerk);
-    console.log("Session:", Clerk?.session);
+    await Clerk.load();
 
-    if (!Clerk?.session) {
-      console.error("No Clerk session found");
+    if (!Clerk.session) {
+
+      console.log("User not logged in");
+
       return null;
     }
 
-    const token =
-    await Clerk.session.getToken();
-
-    console.log("Token generated:", token);
-
-    return token;
+    return await Clerk.session.getToken();
 
   } catch (error) {
 
-    console.error(
-      "Token Error:",
-      error
-    );
+    console.error("Token Error:", error);
 
     return null;
   }

@@ -373,7 +373,3 @@ async function saveAnnualBudget(){
     }
 
 }
-window.addEventListener(
-    "load",
-    loadMonths
-);
