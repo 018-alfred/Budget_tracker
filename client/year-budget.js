@@ -55,118 +55,136 @@ async function loadMonths(){
 
 }
 
-function generateYearAnalysis(){
+async function generateYearAnalysis() {
 
-    const token =
-await window.getClerkToken();
+    try {
 
-const response =
-await fetch(
-    `${API_URL}/monthly`,
-    {
-        headers:{
-            Authorization:
-            `Bearer ${token}`
+        const token =
+        await window.getClerkToken();
+
+        const response =
+        await fetch(
+            `${API_URL}/monthly`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+
+        const budgets =
+        await response.json();
+
+        const options =
+        document.getElementById(
+            "monthSelector"
+        ).selectedOptions;
+
+        selectedBudgets = [];
+
+        for (let option of options) {
+
+            const budget =
+            budgets.find(
+                b => b.id == option.value
+            );
+
+            if (budget) {
+                selectedBudgets.push(budget);
+            }
         }
+
+        if (selectedBudgets.length === 0) {
+
+            alert("Select months");
+            return;
+
+        }
+
+        let totalIncome = 0;
+        let totalExpense = 0;
+        let totalSavings = 0;
+
+        const labels = [];
+        const incomeData = [];
+        const expenseData = [];
+        const savingsData = [];
+
+        selectedBudgets.forEach(budget => {
+
+            totalIncome +=
+            Number(budget.total_income);
+
+            totalExpense +=
+            Number(budget.total_expense);
+
+            totalSavings +=
+            Number(budget.savings);
+
+            labels.push(
+                `${budget.month}`
+            );
+
+            incomeData.push(
+                Number(budget.total_income)
+            );
+
+            expenseData.push(
+                Number(budget.total_expense)
+            );
+
+            savingsData.push(
+                Number(budget.savings)
+            );
+
+        });
+
+        const savingRate =
+        totalIncome > 0
+            ? (totalSavings / totalIncome) * 100
+            : 0;
+
+        document.getElementById(
+            "incomeResult"
+        ).innerText =
+        `₹${totalIncome}`;
+
+        document.getElementById(
+            "expenseResult"
+        ).innerText =
+        `₹${totalExpense}`;
+
+        document.getElementById(
+            "savingResult"
+        ).innerText =
+        `₹${totalSavings}`;
+
+        document.getElementById(
+            "savingRate"
+        ).innerText =
+        `${savingRate.toFixed(2)}%`;
+
+        createBarChart(
+            labels,
+            incomeData,
+            expenseData,
+            savingsData
+        );
+
+        createPieChart(
+            totalIncome,
+            totalExpense,
+            totalSavings
+        );
+
     }
-);
+    catch (error) {
 
-const budgets =
-await response.json();
-
-    const options =
-    document.getElementById("monthSelector")
-    .selectedOptions;
-
-    selectedBudgets = [];
-
-    for(let option of options){
-
-        const budget =
-budgets.find(
-    b => b.id == option.value
-);
-
-if(budget){
-    selectedBudgets.push(budget);
-}
+        console.error(error);
+        alert("Failed to generate analysis");
 
     }
 
-    if(selectedBudgets.length === 0){
-
-        alert("Select months");
-
-        return;
-    }
-
-    let totalIncome = 0;
-    let totalExpense = 0;
-    let totalSavings = 0;
-
-    const labels = [];
-    const incomeData = [];
-    const expenseData = [];
-    const savingsData = [];
-
-    selectedBudgets.forEach(budget=>{
-
-        totalIncome += budget.totalIncome;
-        totalExpense += budget.totalExpense;
-        totalSavings += budget.savings;
-
-        labels.push(
-            budget.month
-        );
-
-        incomeData.push(
-            budget.totalIncome
-        );
-
-        expenseData.push(
-            budget.totalExpense
-        );
-
-        savingsData.push(
-            budget.savings
-        );
-    });
-
-    const savingRate =
-    (totalSavings / totalIncome) * 100;
-
-    document.getElementById(
-    "incomeResult"
-    ).innerText =
-    `₹${totalIncome}`;
-
-    document.getElementById(
-    "expenseResult"
-    ).innerText =
-    `₹${totalExpense}`;
-
-    document.getElementById(
-    "savingResult"
-    ).innerText =
-    `₹${totalSavings}`;
-
-    document.getElementById(
-    "savingRate"
-    ).innerText =
-    `${savingRate.toFixed(2)}%`;
-
-    createBarChart(
-        labels,
-        incomeData,
-        expenseData,
-        savingsData
-    );
-
-    createPieChart(
-        totalIncome,
-        totalExpense,
-        totalSavings
-    );
 }
 
 function createBarChart(
