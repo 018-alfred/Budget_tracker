@@ -1,8 +1,8 @@
 window.addEventListener("load", async () => {
 
-    while(typeof Clerk === "undefined"){
+    while (typeof Clerk === "undefined") {
         await new Promise(resolve =>
-            setTimeout(resolve,100)
+            setTimeout(resolve, 100)
         );
     }
 
@@ -13,11 +13,10 @@ window.addEventListener("load", async () => {
 
 });
 
-function loadDashboard() {
-    console.log(
-        JSON.parse(localStorage.getItem("monthlyBudgets"))
-    );
-}
+
+/* ======================
+   MONTHLY BUDGETS
+====================== */
 
 async function loadMonthlyBudgets() {
 
@@ -44,7 +43,7 @@ async function loadMonthlyBudgets() {
             "monthlyBudgetList"
         );
 
-        if (budgets.length === 0) {
+        if (!budgets.length) {
 
             container.innerHTML =
             "<p>No Monthly Budgets Saved</p>";
@@ -84,13 +83,25 @@ async function loadMonthlyBudgets() {
 
                 </div>
 
+                <div class="record-actions">
+
+                    <button
+                        class="btn delete-btn"
+                        onclick="deleteMonthly(${budget.id})">
+
+                        Delete
+
+                    </button>
+
+                </div>
+
             </div>
 
             `;
         });
 
     }
-    catch(error){
+    catch (error) {
 
         console.error(error);
 
@@ -98,23 +109,48 @@ async function loadMonthlyBudgets() {
 
 }
 
-function deleteMonthly(index){
 
-    let budgets =
-    JSON.parse(
-    localStorage.getItem(
-    "monthlyBudgets"
-    )) || [];
+async function deleteMonthly(id) {
 
-    budgets.splice(index,1);
+    try {
 
-    localStorage.setItem(
-    "monthlyBudgets",
-    JSON.stringify(budgets)
-    );
+        const token =
+        await window.getClerkToken();
 
-    loadMonthlyBudgets();
+        const response =
+        await fetch(
+            `${API_URL}/monthly/${id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+
+        if (response.ok) {
+
+            loadMonthlyBudgets();
+
+        } else {
+
+            alert("Delete Failed");
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(error);
+
+    }
+
 }
+
+
+/* ======================
+   ANNUAL BUDGETS
+====================== */
 
 async function loadAnnualBudgets() {
 
@@ -141,7 +177,7 @@ async function loadAnnualBudgets() {
             "annualBudgetList"
         );
 
-        if (budgets.length === 0) {
+        if (!budgets.length) {
 
             container.innerHTML =
             "<p>No Annual Budgets Saved</p>";
@@ -180,14 +216,25 @@ async function loadAnnualBudgets() {
 
                 </div>
 
+                <div class="record-actions">
+
+                    <button
+                        class="btn delete-btn"
+                        onclick="deleteAnnual(${budget.id})">
+
+                        Delete
+
+                    </button>
+
+                </div>
+
             </div>
 
             `;
-
         });
 
     }
-    catch(error){
+    catch (error) {
 
         console.error(error);
 
@@ -195,20 +242,40 @@ async function loadAnnualBudgets() {
 
 }
 
-function deleteAnnual(index){
 
-    let budgets =
-    JSON.parse(
-    localStorage.getItem(
-    "annualBudgets"
-    )) || [];
+async function deleteAnnual(id) {
 
-    budgets.splice(index,1);
+    try {
 
-    localStorage.setItem(
-    "annualBudgets",
-    JSON.stringify(budgets)
-    );
+        const token =
+        await window.getClerkToken();
 
-    loadAnnualBudgets();
+        const response =
+        await fetch(
+            `${API_URL}/annual/${id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+
+        if (response.ok) {
+
+            loadAnnualBudgets();
+
+        } else {
+
+            alert("Delete Failed");
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(error);
+
+    }
+
 }
