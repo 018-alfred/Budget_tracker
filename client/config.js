@@ -6,3 +6,6 @@ const CLERK_FRONTEND_API_URL =
 
 window.CLERK_PUBLISHABLE_KEY = CLERK_PUBLISHABLE_KEY;
 window.CLERK_FRONTEND_API_URL = CLERK_FRONTEND_API_URL;
+
+window.API_URL =
+"https://budget-tracker-sioh.vercel.app/api";
