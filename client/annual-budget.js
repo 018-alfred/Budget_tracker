@@ -236,7 +236,7 @@ async function saveAnnualBudget() {
 
       alert("Annual Budget Saved");
 
-      loadAnnualBudgets();
+await loadAnnualBudgets();
 
     }else{
 
