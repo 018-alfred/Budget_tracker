@@ -1,1 +1,1 @@
-https://budget-trackerf.vercel.app/budget.html
+https://budgettracker-gray.vercel.app/
