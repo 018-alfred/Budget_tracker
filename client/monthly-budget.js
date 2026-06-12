@@ -266,7 +266,12 @@ async function saveBudget() {
         await window.getClerkToken();
 
         if (!token) {
+
             alert("Please login first");
+
+            window.location.href =
+            "/login.html";
+
             return;
         }
 
@@ -313,11 +318,24 @@ async function saveBudget() {
             }
         );
 
+        if (response.status === 401) {
+
+            alert("Please login first");
+
+            window.location.href =
+            "/login.html";
+
+            return;
+        }
+
         if (!response.ok) {
+
             throw new Error("Failed to save");
         }
 
-        alert("Monthly Budget Saved Successfully");
+        alert(
+            "Monthly Budget Saved Successfully"
+        );
 
         loadMonthlyBudgets();
 
@@ -327,10 +345,9 @@ async function saveBudget() {
         console.error(error);
 
         alert("Save Failed");
-
     }
-
 }
+
 /* Download */
 
 async function downloadReport(){

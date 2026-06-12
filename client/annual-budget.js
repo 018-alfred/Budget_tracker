@@ -194,6 +194,15 @@ async function saveAnnualBudget() {
 
     const token = await window.getClerkToken();
 
+    if (!token) {
+
+        alert("Please login first");
+
+        window.location.href = "/login.html";
+
+        return;
+    }
+
     const year =
     document.getElementById("year").value;
 
@@ -236,14 +245,19 @@ async function saveAnnualBudget() {
 
       alert("Annual Budget Saved");
 
-await loadAnnualBudgets();
+      await loadAnnualBudgets();
+
+    }else if(response.status === 401){
+
+      alert("Please login first");
+
+      window.location.href = "/login.html";
 
     }else{
 
       alert("Failed To Save");
 
     }
-
 }
 
 async function downloadAnnualReport(){
