@@ -1,11 +1,14 @@
-
-
 let selectedYears = [];
 
 let barChart = null;
 let pieChart = null;
 
-loadAnnualBudgets();
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        loadAnnualBudgets();
+    }
+);
 
 document.getElementById("yearSelector")
 .addEventListener("change", function(){
@@ -27,158 +30,186 @@ document.getElementById("yearSelector")
 
 async function loadAnnualBudgets(){
 
-    const token =
-    await window.getClerkToken();
+    try{
 
-    const response =
-    await fetch(
-        `${API_URL}/annual`,
-        {
-            headers:{
-                Authorization:
-                `Bearer ${token}`
+        const token =
+        await window.getClerkToken();
+
+        const response =
+        await fetch(
+            `${API_URL}/annual`,
+            {
+                headers:{
+                    Authorization:
+                    `Bearer ${token}`
+                }
             }
-        }
-    );
+        );
 
-    const annualBudgets =
-    await response.json();
+        const annualBudgets =
+        await response.json();
 
-    const selector =
-    document.getElementById(
-        "yearSelector"
-    );
+        const selector =
+        document.getElementById(
+            "yearSelector"
+        );
 
-    selector.innerHTML = "";
+        selector.innerHTML = "";
 
-    annualBudgets.forEach(
-    (budget)=>{
+        annualBudgets.forEach(
+        (budget)=>{
 
-        selector.innerHTML += `
-        <option value="${budget.id}">
-            ${budget.year}
-        </option>
-        `;
+            selector.innerHTML += `
+            <option value="${budget.id}">
+                ${budget.year}
+            </option>
+            `;
 
-    });
+        });
+
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
 
 }
 
 async function generateFiveYearAnalysis(){
 
-    const token =
-await window.getClerkToken();
+    try{
 
-const response =
-await fetch(
- `${API_URL}/annual`,
- {
-  headers:{
-   Authorization:
-   `Bearer ${token}`
-  }
- }
-);
+        const token =
+        await window.getClerkToken();
 
-const annualBudgets =
-await response.json();
-
-    const options =
-    document.getElementById(
-    "yearSelector"
-    ).selectedOptions;
-
-    selectedYears = [];
-
-    for(let option of options){
-
-        selectedYears.push(
-            annualBudgets[
-                option.value
-            ]
+        const response =
+        await fetch(
+            `${API_URL}/annual`,
+            {
+                headers:{
+                    Authorization:
+                    `Bearer ${token}`
+                }
+            }
         );
+
+        const annualBudgets =
+        await response.json();
+
+        const options =
+        document.getElementById(
+        "yearSelector"
+        ).selectedOptions;
+
+        selectedYears = [];
+
+        for(let option of options){
+
+            const budget =
+            annualBudgets.find(
+                b => b.id == option.value
+            );
+
+            if(budget){
+                selectedYears.push(budget);
+            }
+        }
+
+        if(selectedYears.length !== 5){
+
+            alert(
+            "Please select exactly 5 years."
+            );
+
+            return;
+        }
+
+        let totalIncome = 0;
+        let totalExpense = 0;
+        let totalSavings = 0;
+
+        const labels = [];
+        const incomeData = [];
+        const expenseData = [];
+        const savingsData = [];
+
+        selectedYears.forEach(year=>{
+
+            totalIncome +=
+            Number(year.total_income);
+
+            totalExpense +=
+            Number(year.total_expense);
+
+            totalSavings +=
+            Number(year.savings);
+
+            labels.push(year.year);
+
+            incomeData.push(
+                Number(year.total_income)
+            );
+
+            expenseData.push(
+                Number(year.total_expense)
+            );
+
+            savingsData.push(
+                Number(year.savings)
+            );
+
+        });
+
+        const savingRate =
+        (totalSavings / totalIncome) * 100;
+
+        document.getElementById(
+        "incomeResult"
+        ).innerText =
+        `₹${totalIncome.toLocaleString()}`;
+
+        document.getElementById(
+        "expenseResult"
+        ).innerText =
+        `₹${totalExpense.toLocaleString()}`;
+
+        document.getElementById(
+        "savingResult"
+        ).innerText =
+        `₹${totalSavings.toLocaleString()}`;
+
+        document.getElementById(
+        "savingRate"
+        ).innerText =
+        `${savingRate.toFixed(2)}%`;
+
+        createBarChart(
+            labels,
+            incomeData,
+            expenseData,
+            savingsData
+        );
+
+        createPieChart(
+            totalIncome,
+            totalExpense,
+            totalSavings
+        );
+
+        generateGrowthAnalysis(
+            totalIncome,
+            totalExpense,
+            totalSavings
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
     }
 
-    if(selectedYears.length !== 5){
-
-        alert(
-        "Please select exactly 5 years."
-        );
-
-        return;
-    }
-
-    let totalIncome = 0;
-    let totalExpense = 0;
-    let totalSavings = 0;
-
-    const labels = [];
-    const incomeData = [];
-    const expenseData = [];
-    const savingsData = [];
-
-    selectedYears.forEach(year=>{
-
-        totalIncome += year.totalIncome;
-        totalExpense += year.totalExpense;
-        totalSavings += year.savings;
-
-        labels.push(year.year);
-
-        incomeData.push(
-            year.totalIncome
-        );
-
-        expenseData.push(
-            year.totalExpense
-        );
-
-        savingsData.push(
-            year.savings
-        );
-    });
-
-    const savingRate =
-    (totalSavings / totalIncome) * 100;
-
-    document.getElementById(
-    "incomeResult"
-    ).innerText =
-    `₹${totalIncome}`;
-
-    document.getElementById(
-    "expenseResult"
-    ).innerText =
-    `₹${totalExpense}`;
-
-    document.getElementById(
-    "savingResult"
-    ).innerText =
-    `₹${totalSavings}`;
-
-    document.getElementById(
-    "savingRate"
-    ).innerText =
-    `${savingRate.toFixed(2)}%`;
-
-    createBarChart(
-        labels,
-        incomeData,
-        expenseData,
-        savingsData
-    );
-
-    createPieChart(
-        totalIncome,
-        totalExpense,
-        totalSavings
-    );
-
-    generateGrowthAnalysis(
-        totalIncome,
-        totalExpense,
-        totalSavings
-    );
 }
 
 function createBarChart(
@@ -188,7 +219,9 @@ expenseData,
 savingsData
 ){
 
-    if(barChart) barChart.destroy();
+    if(barChart){
+        barChart.destroy();
+    }
 
     barChart = new Chart(
     document.getElementById(
@@ -196,8 +229,10 @@ savingsData
     ),
     {
         type:"bar",
+
         data:{
             labels,
+
             datasets:[
             {
                 label:"Income",
@@ -214,6 +249,7 @@ savingsData
             ]
         }
     });
+
 }
 
 function createPieChart(
@@ -222,7 +258,9 @@ expense,
 savings
 ){
 
-    if(pieChart) pieChart.destroy();
+    if(pieChart){
+        pieChart.destroy();
+    }
 
     pieChart = new Chart(
     document.getElementById(
@@ -230,12 +268,14 @@ savings
     ),
     {
         type:"pie",
+
         data:{
             labels:[
                 "Income",
                 "Expense",
                 "Savings"
             ],
+
             datasets:[{
                 data:[
                     income,
@@ -245,6 +285,7 @@ savings
             }]
         }
     });
+
 }
 
 function generateGrowthAnalysis(
@@ -260,69 +301,103 @@ savings
         result =
         "Excellent financial growth. Savings exceed total expenses.";
 
-    }else if(savings > 0){
+    }
+    else if(savings > 0){
 
         result =
         "Positive financial performance with healthy savings.";
 
-    }else{
+    }
+    else{
 
         result =
         "Expenses exceed income. Budget adjustment recommended.";
+
     }
 
     document.getElementById(
     "growthAnalysis"
     ).innerText = result;
+
 }
 
 async function saveFiveYearAnalysis(){
 
- const token =
- await window.getClerkToken();
+    try{
 
- const data = {
-  totalIncome:
-  document
-  .getElementById(
-   "incomeResult"
-  )
-  .innerText
-  .replace(/[₹,]/g,""),
+        const token =
+        await window.getClerkToken();
 
-  totalExpense:
-  document
-  .getElementById(
-   "expenseResult"
-  )
-  .innerText
-  .replace(/[₹,]/g,""),
+        const data = {
 
-  savings:
-  document
-  .getElementById(
-   "savingResult"
-  )
-  .innerText
-  .replace(/[₹,]/g,"")
- };
+            totalIncome:Number(
+                document
+                .getElementById(
+                "incomeResult"
+                )
+                .innerText
+                .replace(/[₹,]/g,"")
+            ),
 
- await fetch(
- `${API_URL}/fiveyear`,
- {
-  method:"POST",
-  headers:{
-   "Content-Type":
-   "application/json",
-   Authorization:
-   `Bearer ${token}`
-  },
-  body:JSON.stringify(data)
- }
- );
+            totalExpense:Number(
+                document
+                .getElementById(
+                "expenseResult"
+                )
+                .innerText
+                .replace(/[₹,]/g,"")
+            ),
 
- alert(
- "Five Year Analysis Saved"
- );
+            savings:Number(
+                document
+                .getElementById(
+                "savingResult"
+                )
+                .innerText
+                .replace(/[₹,]/g,"")
+            )
+
+        };
+
+        const response =
+        await fetch(
+        `${API_URL}/fiveyear`,
+        {
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                "application/json",
+
+                Authorization:
+                `Bearer ${token}`
+            },
+
+            body:JSON.stringify(data)
+        }
+        );
+
+        if(!response.ok){
+
+            throw new Error(
+            "Failed To Save"
+            );
+
+        }
+
+        alert(
+        "Five Year Analysis Saved"
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+        "Failed To Save"
+        );
+
+    }
 
 }
