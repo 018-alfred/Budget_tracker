@@ -63,13 +63,23 @@ exports.createBudget = async(req,res)=>{
 
  try{
 
+  const {
+   year,
+   totalIncome,
+   totalExpense,
+   savings
+  } = req.body;
+
   const { data,error } =
   await supabase
   .from("annual_budgets")
   .insert([
    {
     user_id:req.userId,
-    ...req.body
+    year:Number(year),
+    total_income:Number(totalIncome),
+    total_expense:Number(totalExpense),
+    savings:Number(savings)
    }
   ])
   .select();
@@ -81,6 +91,8 @@ exports.createBudget = async(req,res)=>{
  }
  catch(error){
 
+  console.log("ANNUAL INSERT ERROR:", error);
+
   res.status(500).json({
    message:error.message
   });
@@ -89,18 +101,28 @@ exports.createBudget = async(req,res)=>{
 
 };
 
-/* UPDATE */
-
 exports.updateBudget = async(req,res)=>{
 
  try{
 
+  const {
+   year,
+   totalIncome,
+   totalExpense,
+   savings
+  } = req.body;
+
   const { data,error } =
   await supabase
   .from("annual_budgets")
-  .update(req.body)
-  .eq("id",req.params.id)
-  .eq("user_id",req.userId)
+  .update({
+   year: Number(year),
+   total_income: Number(totalIncome),
+   total_expense: Number(totalExpense),
+   savings: Number(savings)
+  })
+  .eq("id", req.params.id)
+  .eq("user_id", req.userId)
   .select();
 
   if(error) throw error;
@@ -110,6 +132,8 @@ exports.updateBudget = async(req,res)=>{
  }
  catch(error){
 
+  console.log("UPDATE ERROR:", error);
+
   res.status(500).json({
    message:error.message
   });
@@ -117,7 +141,6 @@ exports.updateBudget = async(req,res)=>{
  }
 
 };
-
 /* DELETE */
 
 exports.deleteBudget = async(req,res)=>{
