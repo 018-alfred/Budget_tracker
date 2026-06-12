@@ -346,6 +346,8 @@ function resetAnnualForm(){
 }
 async function loadAnnualBudgets() {
 
+  try {
+
     const token =
     await window.getClerkToken();
 
@@ -361,16 +363,27 @@ async function loadAnnualBudgets() {
       `${API_URL}/annual`,
       {
         headers:{
-          "Authorization":
+          Authorization:
           `Bearer ${token}`
         }
       }
     );
 
+    if(!response.ok){
+      throw new Error(
+        "Failed to load annual budgets"
+      );
+    }
+
     const budgets =
     await response.json();
 
-    if(budgets.length===0){
+    console.log(
+      "Annual Budgets:",
+      budgets
+    );
+
+    if(budgets.length === 0){
 
       container.innerHTML =
       "<p>No Annual Budgets Saved</p>";
@@ -426,6 +439,13 @@ async function loadAnnualBudgets() {
 
     });
 
+  }
+  catch(error){
+
+    console.error(error);
+
+  }
+
 }
 
 async function deleteAnnual(id){
@@ -456,3 +476,9 @@ async function deleteAnnual(id){
     }
 
 }
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    loadAnnualBudgets();
+  }
+);
