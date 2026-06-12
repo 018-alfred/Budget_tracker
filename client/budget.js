@@ -113,74 +113,83 @@ function deleteMonthly(index){
     loadMonthlyBudgets();
 }
 
-function loadAnnualBudgets(){
+async function loadAnnualBudgets() {
 
-    const container =
-    document.getElementById(
-    "annualBudgetList"
-    );
+    try {
 
-    const budgets =
-    JSON.parse(
-    localStorage.getItem(
-    "annualBudgets"
-    )) || [];
+        const token =
+        await window.getClerkToken();
 
-    if(budgets.length === 0){
+        const response =
+        await fetch(
+            `${API_URL}/annual`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
 
-        container.innerHTML =
-        "<p>No Annual Budgets Saved</p>";
+        const budgets =
+        await response.json();
 
-        return;
+        const container =
+        document.getElementById(
+            "annualBudgetList"
+        );
+
+        if (budgets.length === 0) {
+
+            container.innerHTML =
+            "<p>No Annual Budgets Saved</p>";
+
+            return;
+        }
+
+        container.innerHTML = "";
+
+        budgets.forEach((budget) => {
+
+            container.innerHTML += `
+
+            <div class="record-card">
+
+                <div class="record-info">
+
+                    <h4>
+                        ${budget.year}
+                    </h4>
+
+                    <p>
+                        Income:
+                        ₹${budget.total_income}
+                    </p>
+
+                    <p>
+                        Expense:
+                        ₹${budget.total_expense}
+                    </p>
+
+                    <p>
+                        Savings:
+                        ₹${budget.savings}
+                    </p>
+
+                </div>
+
+            </div>
+
+            `;
+
+        });
+
+    }
+    catch(error){
+
+        console.error(error);
+
     }
 
-    container.innerHTML = "";
-
-    budgets.forEach((budget,index)=>{
-
-        container.innerHTML += `
-
-        <div class="record-card">
-
-            <div class="record-info">
-
-                <h4>
-                ${budget.year}
-                </h4>
-
-                <p>
-                Income:
-                ₹${budget.totalIncome}
-                </p>
-
-                <p>
-                Expense:
-                ₹${budget.totalExpense}
-                </p>
-
-                <p>
-                Savings:
-                ₹${budget.savings}
-                </p>
-
-            </div>
-
-            <div class="record-actions">
-
-                <button
-                class="btn delete-btn"
-                onclick="deleteAnnual(${index})">
-
-                Delete
-
-                </button>
-
-            </div>
-
-        </div>
-
-        `;
-    });
 }
 
 function deleteAnnual(index){
