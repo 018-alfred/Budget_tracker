@@ -5,7 +5,19 @@ let selectedBudgets = [];
 let barChart = null;
 let pieChart = null;
 
-loadMonths();
+window.addEventListener("load", async () => {
+
+    while(typeof Clerk === "undefined"){
+        await new Promise(resolve =>
+            setTimeout(resolve,100)
+        );
+    }
+
+    await Clerk.load();
+
+    loadMonths();
+
+});
 
 async function loadMonths(){
 

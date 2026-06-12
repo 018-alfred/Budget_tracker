@@ -71,12 +71,18 @@ window.getClerkToken = async function () {
 
   try {
 
-    if (!Clerk.session) {
+    console.log("Clerk:", Clerk);
+    console.log("Session:", Clerk?.session);
+
+    if (!Clerk?.session) {
+      console.error("No Clerk session found");
       return null;
     }
 
     const token =
     await Clerk.session.getToken();
+
+    console.log("Token generated:", token);
 
     return token;
 

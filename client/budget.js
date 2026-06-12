@@ -1,15 +1,18 @@
-loadMonthlyBudgets();
-loadAnnualBudgets();
+window.addEventListener("load", async () => {
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        loadMonthlyBudgets();
-        loadAnnualBudgets();
-
+    while(typeof Clerk === "undefined"){
+        await new Promise(resolve =>
+            setTimeout(resolve,100)
+        );
     }
-);
+
+    await Clerk.load();
+
+    loadMonthlyBudgets();
+    loadAnnualBudgets();
+
+});
+
 function loadDashboard() {
     console.log(
         JSON.parse(localStorage.getItem("monthlyBudgets"))
