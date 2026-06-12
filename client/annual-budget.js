@@ -476,9 +476,16 @@ async function deleteAnnual(id){
     }
 
 }
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+window.addEventListener("load", async () => {
+
+    while (typeof Clerk === "undefined") {
+        await new Promise(resolve =>
+            setTimeout(resolve, 100)
+        );
+    }
+
+    await Clerk.load();
+
     loadAnnualBudgets();
-  }
-);
+
+});
