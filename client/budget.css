@@ -547,131 +547,162 @@ body{
     }
 }
 
-@media(max-width:768px){
+@media(max-width:980px){
 
-    /* SIDEBAR - compact rounded icon bar */
-
-    .sidebar{
-        position:relative;
-        width:calc(100% - 20px);
-        height:auto;
-
-        margin:10px auto 0;
-
-        padding:8px;
-
-        border-radius:16px;
-
-        overflow:visible;
-    }
-
-    .sidebar:hover{
-        width:calc(100% - 20px);
-        overflow:visible;
-    }
-
-    .sidebar-logo{
-        display:none;
-    }
-
-    .menu-label{
-        display:none;
-    }
-
-    .sidebar-menu{
-        flex-direction:row;
-        justify-content:space-around;
-        align-items:center;
-
-        gap:4px;
-
-        padding:0;
-    }
-
-    .menu-item{
-        width:40px;
-        height:40px;
-
-        flex-shrink:0;
-
-        justify-content:center;
-        padding:0;
-        gap:0;
-    }
-
-    .sidebar:hover .menu-item{
-        width:40px;
-        justify-content:center;
-        padding:0;
-        gap:0;
-    }
-
-    .menu-item i{
-        font-size:1rem;
-    }
-
-    .menu-text{
-        display:none;
-    }
-
-    .sidebar:hover .menu-text{
-        display:none;
-    }
-
-    /* MAIN CONTENT */
-
-    .main-content{
-        margin-left:0;
-        width:100%;
-    }
-
-    /* HEADER */
+    /* Banner */
 
     .dashboard-header{
-        padding:15px 20px;
-        height:auto;
-        flex-direction:column;
-        gap:15px;
-    }
+    padding:15px 20px;
+}
 
-    .header-left,
-    .header-right{
-        width:100%;
-        justify-content:space-between;
-    }
+.dashboard-banner{
+    padding:28px 24px;
+}
 
-    .search-bar{
-        max-width:none;
-    }
+    .banner-content h2{
+    text-align:center;
+    font-size:7rem;
+    line-height:1.2;
+}
 
-    /* BACK TO HOME - icon only */
-
-    .home-btn{
-        padding:12px;
-
-        border-radius:10px;
-
-        justify-content:center;
-    }
-
-    .home-btn .btn-text{
-        display:none;
-    }
-
-    .home-btn i{
+    .banner-content p{
         font-size:1.1rem;
     }
 
-    /* RECORDS & GRID */
-
-    .record-card{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:15px;
-    }
+    /* Cards */
 
     .budget-grid{
         grid-template-columns:1fr;
+        gap:20px;
     }
 
+    .budget-card{
+        padding:30px 24px;
+        aspect-ratio:auto;
+        min-height:180px;
+    }
+
+    .budget-card i{
+        width:70px;
+        height:70px;
+        font-size:30px;
+        margin-bottom:18px;
+    }
+
+    .budget-card h3{
+        font-size:1.3rem;
+        margin-bottom:10px;
+    }
+
+    .budget-card p{
+        font-size:1rem;
+        line-height:1.6;
+    }
+
+    /* Records */
+
+    .records-section h2{
+        font-size:1.6rem;
+    }
+
+    .record-card{
+        padding:24px;
+    }
+
+    .record-info h4{
+        font-size:1.2rem;
+    }
+
+    .record-info p{
+        font-size:1rem;
+        line-height:1.6;
+    }
+
+    /* Buttons */
+
+    .btn{
+        font-size:1rem;
+        padding:14px 18px;
+    }
+
+    /* Header */
+
+    .search-bar{
+        margin-left: 13vw;
+        height:52px;
+        width:290px;
+    }
+
+    .search-bar input{
+        font-size:1rem;
+    }
+
+    /* Floating sidebar */
+
+    .sidebar{
+    position:fixed;
+    transition:width .3s ease;
+
+    top:15px;
+    left:15px;
+
+    width:70px;
+    height:420px;
+
+    background:#1c2434;
+
+    border-radius:20px;
+
+    z-index:1000;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+    .sidebar-menu{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+
+    padding-top:15px;
+}
+
+.menu-item{
+    width:48px;
+    height:48px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:0;
+    border-radius:12px;
+}
+
+.menu-item{
+    width:48px;
+    height:48px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+    .menu-text{
+        display:inline;
+        opacity:1;
+    }
+}
+.sidebar.open{
+    width:260px;
+}
+.sidebar.open .menu-item{
+    width:100%;
+    justify-content:flex-start;
+    gap:14px;
+    padding:0 16px;
+}
+.sidebar.open .menu-text{
+    display:block;
 }
