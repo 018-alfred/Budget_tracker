@@ -52,7 +52,7 @@ window.addEventListener("load", async () => {
           .addEventListener("click", async () => {
             await Clerk.signOut();
 
-            window.location.href = "/";
+            window.location.href = "/client/login.html";
           });
 
       } else {
