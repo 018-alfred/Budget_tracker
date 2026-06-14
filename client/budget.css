@@ -549,23 +549,25 @@ body{
 
 @media(max-width:768px){
 
-    /* SIDEBAR */
+    /* SIDEBAR - compact rounded icon bar */
 
     .sidebar{
+        position:relative;
         width:calc(100% - 20px);
         height:auto;
 
         margin:10px auto 0;
 
-        padding:10px 14px;
+        padding:8px;
 
-        border-radius:18px;
+        border-radius:16px;
 
         overflow:visible;
     }
 
     .sidebar:hover{
         width:calc(100% - 20px);
+        overflow:visible;
     }
 
     .sidebar-logo{
@@ -581,25 +583,42 @@ body{
         justify-content:space-around;
         align-items:center;
 
-        gap:6px;
+        gap:4px;
 
         padding:0;
     }
 
-    .menu-item,
-    .sidebar:hover .menu-item{
-        width:42px;
-        height:42px;
+    .menu-item{
+        width:40px;
+        height:40px;
+
+        flex-shrink:0;
 
         justify-content:center;
         padding:0;
         gap:0;
     }
 
-    .menu-text,
+    .sidebar:hover .menu-item{
+        width:40px;
+        justify-content:center;
+        padding:0;
+        gap:0;
+    }
+
+    .menu-item i{
+        font-size:1rem;
+    }
+
+    .menu-text{
+        display:none;
+    }
+
     .sidebar:hover .menu-text{
         display:none;
     }
+
+    /* MAIN CONTENT */
 
     .main-content{
         margin-left:0;
@@ -625,12 +644,14 @@ body{
         max-width:none;
     }
 
-    /* BACK TO HOME - ICON ONLY */
+    /* BACK TO HOME - icon only */
 
     .home-btn{
         padding:12px;
 
         border-radius:10px;
+
+        justify-content:center;
     }
 
     .home-btn .btn-text{
