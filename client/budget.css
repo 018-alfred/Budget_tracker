@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap');
 
 *{
     margin:0;
@@ -12,19 +12,24 @@ body{
     color:#1f2937;
 }
 
-.container{
-    width:90%;
-    max-width:1300px;
-    margin:auto;
-    padding:40px 0;
-}
-
-/* Header */
+/* HEADER */
 
 .dashboard-header{
-    background:#005ffc;
-    color:white;
-    padding:20px 40px;
+    height:80px;
+    background:white;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 40px;
+
+    box-shadow:
+    0 2px 15px rgba(0,0,0,.06);
+
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
 .logo{
@@ -33,45 +38,102 @@ body{
     gap:12px;
 }
 
-.logo i{
-    font-size:28px;
+.logo img{
+    width:45px;
 }
 
-/* Hero */
-
-.hero{
-    text-align:center;
-    margin-bottom:50px;
+.logo h1{
+    font-size:1.4rem;
+    color:#005ffc;
 }
 
-.hero h2{
+.home-btn{
+    text-decoration:none;
+
+    background:#005ffc;
+    color:white;
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    transition:.3s;
+}
+
+.home-btn:hover{
+    background:#0046be;
+}
+
+/* CONTAINER */
+
+.container{
+    width:92%;
+    max-width:1400px;
+
+    margin:auto;
+
+    padding:40px 0;
+}
+
+/* BANNER */
+
+.dashboard-banner{
+    background:linear-gradient(
+        135deg,
+        #005ffc,
+        #4285ff
+    );
+
+    color:white;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    margin-bottom:40px;
+
+    box-shadow:
+    0 15px 40px rgba(0,95,252,.20);
+}
+
+.banner-content h2{
     font-size:2rem;
     margin-bottom:10px;
 }
 
-.hero p{
-    color:#6b7280;
+.banner-content p{
+    opacity:.9;
 }
 
-/* Cards */
+/* BUDGET CARDS */
 
 .budget-grid{
     display:grid;
+
     grid-template-columns:
     repeat(auto-fit,minmax(250px,1fr));
 
     gap:25px;
+
+    margin-bottom:50px;
 }
 
 .budget-card{
     background:white;
+
     border-radius:20px;
+
     padding:30px;
+
     text-decoration:none;
-    color:inherit;
+    color:#1f2937;
 
     box-shadow:
-    0 10px 30px rgba(0,0,0,.08);
+    0 8px 25px rgba(0,0,0,.08);
 
     transition:.3s;
 }
@@ -81,51 +143,74 @@ body{
 }
 
 .budget-card i{
-    font-size:35px;
+    font-size:40px;
     color:#005ffc;
     margin-bottom:15px;
 }
 
 .budget-card h3{
     margin-bottom:10px;
+    font-size:1.2rem;
 }
 
-/* Records */
+.budget-card p{
+    color:#6b7280;
+}
+
+/* RECORD SECTIONS */
 
 .records-section{
-    margin-top:60px;
+    margin-top:50px;
 }
 
 .records-section h2{
-    margin-bottom:25px;
+    margin-bottom:20px;
+
+    font-size:1.5rem;
+
+    color:#111827;
 }
 
 .record-container{
     display:grid;
-    gap:15px;
+    gap:20px;
 }
 
-.record-card{
+/* RECORD CARD */
 
+.record-card{
     background:white;
 
-    border-radius:15px;
+    border-radius:20px;
 
-    padding:20px;
+    padding:25px;
 
     display:flex;
 
     justify-content:space-between;
-
     align-items:center;
 
     box-shadow:
-    0 5px 15px rgba(0,0,0,.08);
+    0 8px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+}
+
+.record-card:hover{
+    transform:translateY(-3px);
 }
 
 .record-info h4{
-    margin-bottom:6px;
+    color:#005ffc;
+    margin-bottom:8px;
 }
+
+.record-info p{
+    color:#6b7280;
+    margin:4px 0;
+}
+
+/* ACTIONS */
 
 .record-actions{
     display:flex;
@@ -135,8 +220,12 @@ body{
 .btn{
     border:none;
     cursor:pointer;
-    padding:10px 15px;
-    border-radius:8px;
+
+    padding:12px 18px;
+
+    border-radius:10px;
+
+    font-weight:600;
 }
 
 .view-btn{
@@ -149,12 +238,28 @@ body{
     color:white;
 }
 
-@media(max-width:768px){
-
-.record-card{
-    flex-direction:column;
-    gap:15px;
-    align-items:flex-start;
+.delete-btn:hover{
+    background:#dc2626;
 }
 
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .dashboard-header{
+        padding:15px 20px;
+        height:auto;
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .record-card{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .budget-grid{
+        grid-template-columns:1fr;
+    }
 }
