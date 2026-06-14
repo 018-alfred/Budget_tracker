@@ -5,130 +5,182 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="budget.css">
     <link rel="icon" type="image/svg+xml" href="image/header logo blueBT.png">
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-    <header class="dashboard-header">
+    
+<div class="dashboard-wrapper">
 
-    <div class="header-left">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-        <div class="logo">
+        <div class="sidebar-logo">
             <img src="image/header logo blueBT.png" alt="BudgetTracker Logo">
-            <h1>BudgetTracker</h1>
+            <h1 class="logo-text">BudgetTracker</h1>
         </div>
+
+        <nav class="sidebar-menu">
+
+            <span class="menu-label">Menu</span>
+
+            <a href="index.html" class="menu-item active">
+                <i class="fa-solid fa-house"></i>
+                <span class="menu-text">Dashboard</span>
+            </a>
+
+            <a href="monthly-budget.html" class="menu-item">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span class="menu-text">Monthly Budget</span>
+            </a>
+
+            <a href="year-budget.html" class="menu-item">
+                <i class="fa-solid fa-chart-column"></i>
+                <span class="menu-text">Year Budget</span>
+            </a>
+
+            <a href="annual-budget.html" class="menu-item">
+                <i class="fa-solid fa-coins"></i>
+                <span class="menu-text">Annual Budget</span>
+            </a>
+
+            <a href="fiveyear-budget.html" class="menu-item">
+                <i class="fa-solid fa-chart-line"></i>
+                <span class="menu-text">5-Year Budget</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+        <header class="dashboard-header">
+
+            <div class="header-left">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Type to search...">
+                </div>
+            </div>
+
+            <div class="header-right">
+
+                <span id="auth-area">
+                    <a id="login-link" href="/login.html">Login</a>
+                    <a id="signup-link" href="/signup.html">Sign Up</a>
+                </span>
+
+                <a href="index.html" class="home-btn">
+                    <i class="fa-solid fa-house"></i>
+                    Back To Home
+                </a>
+
+            </div>
+
+        </header>
+
+        <main class="container">
+
+            <!-- BANNER -->
+            <section class="dashboard-banner">
+
+                <div class="banner-content">
+
+                    <h2>Budget Dashboard</h2>
+
+                    <p>
+                        Monitor your Monthly and Annual Budgets in one place
+                    </p>
+
+                </div>
+
+            </section>
+
+            <!-- Budget Options -->
+
+            <section class="budget-grid">
+
+                <a href="monthly-budget.html" class="budget-card">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+
+                    <h3>Monthly Budget</h3>
+
+                    <p>
+                        Create and manage monthly budgets
+                    </p>
+
+                </a>
+
+                <a href="year-budget.html" class="budget-card">
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    <h3>Year Budget</h3>
+
+                    <p>
+                        Generate annual summary from months
+                    </p>
+
+                </a>
+
+                <a href="annual-budget.html" class="budget-card">
+
+                    <i class="fa-solid fa-coins"></i>
+
+                    <h3>Annual Budget</h3>
+
+                    <p>
+                        Add yearly financial records
+                    </p>
+
+                </a>
+
+                <a href="fiveyear-budget.html" class="budget-card">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <h3>5-Year Budget</h3>
+
+                    <p>
+                        Analyze long-term financial growth
+                    </p>
+
+                </a>
+
+            </section>
+
+            <!-- Saved Monthly Budgets -->
+
+            <section class="records-section">
+
+                <h2>Saved Monthly Budgets</h2>
+
+                <div id="monthlyBudgetList"
+                     class="record-container">
+                </div>
+
+            </section>
+
+            <!-- Saved Annual Budgets -->
+
+            <section class="records-section">
+
+                <h2>Saved Annual Budgets</h2>
+
+                <div id="annualBudgetList"
+                     class="record-container">
+                </div>
+
+            </section>
+
+        </main>
 
     </div>
 
-    <div class="header-right">
-        <span id="auth-area">
-        <a id="login-link" href="/login.html">Login</a>
-        <a id="signup-link" href="/signup.html">Sign Up</a>
-    </span>
-
-        <a href="index.html" class="home-btn">
-            <i class="fa-solid fa-house"></i>
-            Back To Home
-        </a>
-
-    </div>
-
-</header>
-
-
-<main class="container">
-
-    <section class="dashboard-banner">
-
-    <div class="banner-content">
-
-        <h2>Budget Dashboard</h2>
-
-        <p>
-            Monitor your Monthly and Annual Budgets in one place
-        </p>
-
-    </div>
-
-</section>
-
-    <!-- Budget Options -->
-
-    <section class="budget-grid">
-
-        <a href="monthly-budget.html" class="budget-card">
-
-            <i class="fa-solid fa-calendar-days"></i>
-
-            <h3>Monthly Budget</h3>
-
-            <p>
-                Create and manage monthly budgets
-            </p>
-
-        </a>
-
-        <a href="year-budget.html" class="budget-card">
-
-            <i class="fa-solid fa-chart-column"></i>
-
-            <h3>Year Budget</h3>
-
-            <p>
-                Generate annual summary from months
-            </p>
-
-        </a>
-
-        <a href="annual-budget.html" class="budget-card">
-
-            <i class="fa-solid fa-coins"></i>
-
-            <h3>Annual Budget</h3>
-
-            <p>
-                Add yearly financial records
-            </p>
-
-        </a>
-
-        <a href="fiveyear-budget.html" class="budget-card">
-
-            <i class="fa-solid fa-chart-line"></i>
-
-            <h3>5-Year Budget</h3>
-
-            <p>
-                Analyze long-term financial growth
-            </p>
-
-        </a>
-
-    </section>
-
-    <!-- Saved Monthly Budgets -->
-
-    <section class="records-section">
-
-        <h2>Saved Monthly Budgets</h2>
-
-        <div id="monthlyBudgetList"
-             class="record-container">
-        </div>
-
-    </section>
-
-    <!-- Saved Annual Budgets -->
-
-    <section class="records-section">
-
-        <h2>Saved Annual Budgets</h2>
-
-        <div id="annualBudgetList"
-             class="record-container">
-        </div>
-
-    </section>
-
-</main>
+</div>
 <script src="config.js"></script>
 <script
   async
@@ -143,7 +195,7 @@
 
 
 
-<footer class="footer">
+<!--<footer class="footer">
     <div class="footer-container">
 
         <div class="footer-brand">
@@ -181,4 +233,4 @@
 </footer>
 
 </body>
-</html>
+</html>-->
