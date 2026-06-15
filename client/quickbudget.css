@@ -1,489 +1,227 @@
-/* ===========================
-   QUICK BUDGET PAGE
-=========================== */
-
-body{
-    background:#f5f8ff;
+.budget-dashboard{
+    display:flex;
+    gap:25px;
+    padding:30px;
+    align-items:flex-start;
 }
 
-/* ===========================
-   INPUTS
-=========================== */
+/* LEFT PANEL */
 
-#initialAmount,
-#expenseLabel,
-#expenseAmount{
+.left-panel{
+    width:32%;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* RIGHT PANEL */
+
+.right-panel{
+    width:68%;
+}
+
+/* CARDS */
+
+.expense-section,
+.budget-box,
+.summary-section{
+    background:#ffffff;
+    padding:25px;
+    border-radius:20px;
+    border:1px solid #dbeafe;
+    box-shadow:0 10px 30px rgba(37,99,235,.08);
+}
+
+/* HEADINGS */
+
+.expense-section h2,
+.budget-box h3,
+.summary-section h2{
+    color:#0f172a;
+    margin-bottom:20px;
+    font-size:1.3rem;
+    font-weight:700;
+}
+
+/* INPUTS */
+
+.expense-section input{
     width:100%;
-    max-width:700px;
-    display:block;
-    margin:20px auto;
-    padding:15px;
-    border:1px solid #dce5f5;
+    padding:14px;
+    margin-bottom:15px;
+    border:1px solid #dbe3e5;
     border-radius:12px;
-    background:#fff;
-    font-size:16px;
-}
-
-#initialAmount:focus,
-#expenseLabel:focus,
-#expenseAmount:focus{
     outline:none;
-    border-color:#1a6fdb;
-    box-shadow:0 0 0 4px rgba(26,111,219,.15);
+    font-size:15px;
+    transition:.3s;
 }
 
-/* ===========================
-   BUTTONS
-=========================== */
+.expense-section input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+}
+
+/* BUTTONS */
+
+.set-btn{
+    background:#1d4ed8;
+    color:white;
+}
+
+.add-btn{
+    background:#2563eb;
+    color:white;
+}
+
+.done-btn{
+    background:#60a5fa;
+    color:white;
+    margin-top:10px;
+}
+
+.reset-btn{
+    background:#dc2626;
+    color:white;
+    margin-top:20px;
+}
 
 .set-btn,
 .add-btn,
 .done-btn,
 .reset-btn{
-    display:block;
-    margin:15px auto;
-    min-width:220px;
-    padding:14px 24px;
+    width:100%;
+    padding:14px;
     border:none;
     border-radius:12px;
-    color:#fff;
-    font-weight:600;
     cursor:pointer;
+    font-weight:600;
+    font-size:15px;
     transition:.3s;
-}
-
-.set-btn{
-    background:#1a6fdb;
-}
-
-.add-btn{
-    background:#22a559;
-}
-
-.done-btn{
-    background:#7c3aed;
-}
-
-.reset-btn{
-    background:#e53e3e;
 }
 
 .set-btn:hover,
 .add-btn:hover,
 .done-btn:hover,
 .reset-btn:hover{
-    transform:translateY(-2px);
+    transform:translateY(-3px);
 }
 
-/* ===========================
-   BUDGET OVERVIEW
-=========================== */
-
-.budget-overview{
-    max-width:900px;
-    margin:40px auto;
-}
-
-.budget-box{
-    background:#ffffff;
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-}
-
-.budget-box h3{
-    text-align:center;
-    color:#1252a8;
-    margin-bottom:25px;
-}
+/* BUDGET OVERVIEW */
 
 .amount-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:16px 0;
-    border-bottom:1px solid #edf2f7;
-}
-
-.amount-row:last-child{
-    border-bottom:none;
+    padding:14px 0;
+    border-bottom:1px solid #edf1f3;
 }
 
 .amount-row span{
     color:#64748b;
-    font-weight:500;
+    font-size:15px;
 }
 
 .amount-row strong{
-    color:#1a6fdb;
-    font-size:1.2rem;
+    color:#1e3a8a;
+    font-size:16px;
 }
 
-/* ===========================
-   PROGRESS BAR
-=========================== */
+/* PROGRESS BAR */
 
 .progress{
-    width:100%;
-    height:22px;
-    margin-top:25px;
-    background:#dce6f5;
-    border-radius:30px;
+    height:14px;
+    background:#dbeafe;
+    border-radius:50px;
     overflow:hidden;
+    margin-top:20px;
 }
 
 .progress-fill{
-    width:0%;
     height:100%;
+    width:0%;
     background:linear-gradient(
         90deg,
-        #22a559,
-        #38c172
+        #2563eb,
+        #60a5fa
     );
-    transition:width .4s ease;
+    transition:.4s;
 }
 
-/* ===========================
-   EXPENSE SECTION
-=========================== */
-
-.expense-section{
-    max-width:900px;
-    margin:40px auto;
-    padding:30px;
-    background:#ffffff;
-    border-radius:20px;
-    border-left:5px solid #1a6fdb;
-    box-shadow:0 10px 25px rgba(0,0,0,.06);
-}
-
-.expense-section h2{
-    text-align:center;
-    color:#1252a8;
-    margin-bottom:20px;
-}
-
-/* ===========================
-   SUMMARY SECTION
-=========================== */
+/* STATEMENT SECTION */
 
 .summary-section{
-    max-width:1100px;
-    margin:40px auto;
-    padding:30px;
-    background:#ffffff;
-    border-radius:20px;
-    border-left:5px solid #22a559;
-    box-shadow:0 10px 25px rgba(0,0,0,.06);
+    min-height:700px;
 }
 
-.summary-section h2{
-    text-align:center;
-    color:#1252a8;
-    margin-bottom:25px;
-}
+/* TABLE */
 
-/* ===========================
-   TABLE
-=========================== */
-
-.summary-section table{
+table{
     width:100%;
     border-collapse:collapse;
     overflow:hidden;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    border-radius:12px;
 }
 
-.summary-section th{
-    background:#1a6fdb;
+thead{
+    background:#1e40af;
     color:white;
-    padding:16px;
 }
 
-.summary-section td{
+th{
     padding:16px;
-    border-bottom:1px solid #e5e7eb;
-}
-
-.summary-section td:first-child{
     text-align:left;
-}
-
-.summary-section td:last-child{
-    text-align:right;
     font-weight:600;
 }
 
-.summary-section tbody tr:nth-child(even){
+td{
+    padding:15px;
+    border-bottom:1px solid #edf1f3;
+}
+
+tbody tr:hover{
     background:#f8fbff;
 }
 
-.summary-section tbody tr:hover{
-    background:#eef5ff;
-}
+/* CHART */
 
-/* ===========================
-   PIE CHART
-=========================== */
-
-#budgetChart{
-    display:block;
-    max-width:400px;
-    width:100%;
-    margin:40px auto;
-}
 .chart-container{
-    width: 100%;
-    max-width: 500px;
-    margin: 30px auto;
+    margin-top:25px;
+    padding:20px;
+    border-radius:15px;
+    background:#eff6ff;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
+
+/* Pie Chart Size */
 
 #budgetChart{
-    width: 100% !important;
-    height: 400px !important;
+    width:250px !important;
+    height:250px !important;
+    max-width:250px;
+    max-height:250px;
 }
 
-/* ===========================
-   RESPONSIVE
-=========================== */
+/* SCROLLABLE TABLE IF LARGE */
 
-@media(max-width:768px){
+.summary-section{
+    overflow-x:auto;
+}
 
-    #initialAmount,
-    #expenseLabel,
-    #expenseAmount{
-        width:90%;
-    }
+/* RESPONSIVE */
 
-    .set-btn,
-    .add-btn,
-    .done-btn,
-    .reset-btn{
-        width:90%;
-    }
+@media(max-width:980px){
 
-    .expense-section,
-    .summary-section,
-    .budget-overview{
-        margin:20px 15px;
-    }
-
-    .expense-section,
-    .summary-section{
-        padding:20px;
-    }
-
-    .amount-row{
+    .budget-dashboard{
         flex-direction:column;
-        gap:8px;
-        text-align:center;
-    }
-
-    .summary-section{
-        overflow-x:auto;
-    }
-}
-
-/* ==========================
-   RESPONSIVE IMPROVEMENTS
-========================== */
-
-*{
-    box-sizing:border-box;
-}
-
-html,
-body{
-    overflow-x:hidden;
-}
-
-/* Large Desktop */
-@media screen and (min-width:1400px){
-
-    .budget-box,
-    .expense-section{
-        max-width:1000px;
-    }
-
-    .summary-section{
-        max-width:1200px;
-    }
-
-    #budgetChart{
-        height:450px !important;
-    }
-}
-
-/* Laptop */
-@media screen and (max-width:1200px){
-
-    .budget-overview,
-    .expense-section{
-        max-width:95%;
-    }
-
-    .summary-section{
-        max-width:95%;
-    }
-}
-
-/* Tablet */
-@media screen and (max-width:992px){
-
-    .budget-box,
-    .expense-section,
-    .summary-section{
-        padding:25px;
-    }
-
-    .amount-row strong{
-        font-size:1.1rem;
-    }
-
-    #budgetChart{
-        height:350px !important;
-    }
-}
-
-/* Mobile */
-@media screen and (max-width:768px){
-
-    #initialAmount,
-    #expenseLabel,
-    #expenseAmount{
-        width:95%;
-        padding:12px;
-        font-size:15px;
-    }
-
-    .set-btn,
-    .add-btn,
-    .done-btn,
-    .reset-btn{
-        width:95%;
-        min-width:auto;
-        padding:12px;
-    }
-
-    .budget-box,
-    .expense-section,
-    .summary-section{
-        padding:18px;
-        border-radius:15px;
-    }
-
-    .amount-row{
-        flex-direction:column;
-        text-align:center;
-        gap:8px;
-    }
-
-    .amount-row strong{
-        font-size:1rem;
-    }
-
-    .summary-section table{
-        min-width:500px;
-    }
-
-    .summary-section{
-        overflow-x:auto;
-    }
-
-    .chart-container{
-        max-width:100%;
-    }
-
-    #budgetChart{
-        height:300px !important;
-    }
-}
-
-/* Small Mobile */
-@media screen and (max-width:576px){
-
-    .budget-box h3,
-    .expense-section h2,
-    .summary-section h2{
-        font-size:1.3rem;
-    }
-
-    #initialAmount,
-    #expenseLabel,
-    #expenseAmount{
-        font-size:14px;
-        padding:10px;
-    }
-
-    .set-btn,
-    .add-btn,
-    .done-btn,
-    .reset-btn{
-        font-size:14px;
-        padding:10px;
-    }
-
-    .budget-box,
-    .expense-section,
-    .summary-section{
         padding:15px;
     }
 
-    .amount-row span{
-        font-size:14px;
+    .left-panel,
+    .right-panel{
+        width:100%;
     }
 
-    .amount-row strong{
-        font-size:0.95rem;
-    }
-
-    .summary-section th,
-    .summary-section td{
-        padding:12px 8px;
-        font-size:13px;
-    }
-
-    .progress{
-        height:18px;
-    }
-
-    #budgetChart{
-        height:250px !important;
-    }
 }
-
-/* Extra Small Phones */
-@media screen and (max-width:375px){
-
-    .budget-box,
-    .expense-section,
-    .summary-section{
-        padding:12px;
-    }
-
-    .budget-box h3,
-    .expense-section h2,
-    .summary-section h2{
-        font-size:1.1rem;
-    }
-
-    .summary-section th,
-    .summary-section td{
-        font-size:12px;
-        padding:10px 6px;
-    }
-
-    .amount-row strong{
-        font-size:0.9rem;
-    }
-
-    .progress{
-        height:16px;
-    }
-
-    #budgetChart{
-        height:220px !important;
-    }
-}
-

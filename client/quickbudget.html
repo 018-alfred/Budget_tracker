@@ -26,118 +26,135 @@
     </nav>
 </header>
 
-<!-- BUDGET SETUP -->
-    <section class="expense-section">
+<div class="budget-dashboard">
 
-        <h2>Set Your Budget</h2>
+    <!-- LEFT SIDE -->
+    <div class="left-panel">
 
-        <input
-            type="number"
-            id="initialAmount"
-            placeholder="Enter Initial Budget Amount">
+        <!-- SET BUDGET -->
+        <section class="expense-section">
 
-        <button class="set-btn" onclick="setBudget()">
-            Set Budget
-        </button>
+            <h2>Set Your Budget</h2>
 
-    </section>
+            <input
+                type="number"
+                id="initialAmount"
+                placeholder="Enter Initial Budget Amount">
 
-    <!-- BUDGET OVERVIEW -->
-    <div class="budget-overview">
+            <button
+                class="set-btn"
+                onclick="setBudget()">
+                Set Budget
+            </button>
 
-        <div class="budget-box">
+        </section>
 
-            <h3>Budget Overview</h3>
+        <!-- BUDGET OVERVIEW -->
+        <div class="budget-overview">
 
-            <div class="amount-row">
-                <span>Initial Budget</span>
-                <strong id="showInitial">₹0</strong>
-            </div>
+            <div class="budget-box">
 
-            <div class="amount-row">
-                <span>Total Spent</span>
-                <strong id="showSpent">₹0</strong>
-            </div>
+                <h3>Budget Overview</h3>
 
-            <div class="amount-row">
-                <span>Remaining Amount</span>
-                <strong id="showRemaining">₹0</strong>
-            </div>
-
-            <div class="progress">
-                <div
-                    class="progress-fill"
-                    id="progressFill">
+                <div class="amount-row">
+                    <span>Initial Budget</span>
+                    <strong id="showInitial">₹0</strong>
                 </div>
+
+                <div class="amount-row">
+                    <span>Total Spent</span>
+                    <strong id="showSpent">₹0</strong>
+                </div>
+
+                <div class="amount-row">
+                    <span>Remaining Amount</span>
+                    <strong id="showRemaining">₹0</strong>
+                </div>
+
+                <div class="progress">
+                    <div
+                        class="progress-fill"
+                        id="progressFill">
+                    </div>
+                </div>
+
             </div>
 
         </div>
+
+        <!-- ADD EXPENSE -->
+        <section class="expense-section">
+
+            <h2>Add Expense</h2>
+
+            <input
+                type="text"
+                id="expenseLabel"
+                placeholder="Expense Name (Food, Travel, Rent...)">
+
+            <input
+                type="number"
+                id="expenseAmount"
+                placeholder="Expense Amount">
+
+            <button
+                class="add-btn"
+                onclick="addExpense()">
+                Add Expense
+            </button>
+
+            <button
+                class="done-btn"
+                onclick="generateSummary()">
+                Generate Report
+            </button>
+
+        </section>
 
     </div>
 
-    <!-- ADD EXPENSE -->
-    <section class="expense-section">
+    <!-- RIGHT SIDE -->
+    <div class="right-panel">
 
-        <h2>Add Expense</h2>
+        <section class="summary-section">
 
-        <input
-            type="text"
-            id="expenseLabel"
-            placeholder="Expense Name (Food, Travel, Rent...)">
+            <h2>Financial Statement</h2>
 
-        <input
-            type="number"
-            id="expenseAmount"
-            placeholder="Expense Amount">
+            <table>
 
-        <button class="add-btn" onclick="addExpense()">
-            Add Expense
-        </button>
+                <thead>
+                    <tr>
+                        <th>Payment Details</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
 
-        <button class="done-btn" onclick="generateSummary()">
-            Generate Report
-        </button>
+                <tbody id="summaryTable">
 
-    </section>
+                    <tr>
+                        <td>Initial Budget</td>
+                        <td>₹0</td>
+                    </tr>
 
-    <!-- FINANCIAL STATEMENT -->
-    <section class="summary-section">
+                </tbody>
 
-        <h2> Statement</h2>
+            </table>
 
-        <table>
+            <div class="chart-container">
+                <canvas id="budgetChart"></canvas>
+            </div>
 
-            <thead>
-                <tr>
-                    <th>Payment Details</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
+            <button
+                class="reset-btn"
+                onclick="resetBudget()">
+                Reset Budget
+            </button>
 
-            <tbody id="summaryTable">
+        </section>
 
-                <tr>
-                    <td>Initial Budget</td>
-                    <td>₹0</td>
-                </tr>
+    </div>
 
-            </tbody>
-
-        </table>
-
-        <!-- PIE CHART -->
-        <!-- EXPENSE CHART -->
-        <div class="chart-container">
-            <canvas id="budgetChart"></canvas>
-        </div>
-
-        <button
-            class="reset-btn"
-            onclick="resetBudget()">
-            Reset Budget
-        </button>
-
-    </section>
+</div>
  
 <script
   async
