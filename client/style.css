@@ -261,10 +261,12 @@ nav a[href*="signup"]:hover{
 .footer-brand h3{
     margin:0;
 }
+/*==video section==*/
 .hero{
+    border-radius: 20px;
     position:relative;
     min-height:90vh;
-    width:100vw;
+    width:98.5vw;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -277,7 +279,7 @@ nav a[href*="signup"]:hover{
     top:0;
     left:50%;
 
-    width:130%;
+    width:125%;
     height:100%;
 
     transform:translateX(-50%);
@@ -326,6 +328,173 @@ nav a[href*="signup"]:hover{
 .btn.secondary:hover{
     background:#1d4ed8;
     transform:translateY(-3px);
+}
+.about-budget{
+
+    position:relative;
+
+    width:90%;
+    margin:80px auto;
+
+    height:650px;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.15);
+}
+
+/* BACKGROUND IMAGE */
+
+.about-budget img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+/* CARD ON TOP OF IMAGE */
+
+.about-card{
+
+    position:absolute;
+
+    top:50%;
+    left:50px;
+
+    transform:translateY(-50%);
+
+    width:550px;
+
+    background:#ffffff;
+
+    padding:45px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.12);
+}
+
+/* HEADING */
+
+.about-card h2{
+
+    font-size:3.5rem;
+
+    line-height:1.1;
+
+    color:#0f172a;
+
+    margin-bottom:10px;
+}
+
+.about-card span{
+    color:#2563eb;
+}
+
+.about-card h4{
+
+    color:#64748b;
+
+    font-size:1.1rem;
+
+    margin-bottom:20px;
+}
+
+/* BLUE LINE */
+
+.line{
+
+    width:80px;
+
+    height:4px;
+
+    background:#2563eb;
+
+    border-radius:50px;
+
+    margin-bottom:25px;
+}
+
+/* CONTENT */
+
+.about-card p{
+
+    color:#475569;
+
+    font-size:1.05rem;
+
+    line-height:1.8;
+
+    margin-bottom:35px;
+}
+
+/* BUTTON */
+
+.signin-btn{
+
+    display:inline-block;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:16px 32px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.signin-btn:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-3px);
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+    .about-budget{
+
+        height:auto;
+    }
+
+    .about-budget img{
+
+        min-height:600px;
+    }
+
+    .about-card{
+
+        position:relative;
+
+        left:auto;
+        top:auto;
+
+        transform:none;
+
+        width:90%;
+
+        margin:30px auto;
+    }
+
+    .about-card h2{
+
+        font-size:2.3rem;
+    }
 }
 
 @media(max-width:768px){
