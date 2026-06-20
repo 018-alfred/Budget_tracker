@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="image/header logo blueBT.png" alt="Budget Tracker Logo" width="160" />
+<img src="client/image/header logo blueBT.png" alt="Budget Tracker Logo" width="160" />
 
 # Budget Tracker
 
@@ -10,7 +10,7 @@ Expense Tracking · Budget Planning · Income Insights · Visual Analytics · Se
 <br>
 
 <a href="https://budgettracker-gray.vercel.app/" target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/badge/OPEN-BUDGET%20TRACKER-00C896?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Open Budget Tracker Live Website" />
+  <img src="https://img.shields.io/badge/OPEN-BUDGET%20TRACKER-00C896?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Open Budget Tracker Live Website" style="border-radius:20px;" />
 </a>
 
 <br><br>
