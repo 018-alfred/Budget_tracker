@@ -223,3 +223,22 @@ async function handleSignup() {
             'Signup Failed';
     }
 }
+
+const video = document.getElementById("heroVideo");
+
+video.addEventListener("click", () => {
+
+    if (video.paused) {
+        video.currentTime = 0;
+        video.play();
+    }
+
+});
+
+video.addEventListener("timeupdate", () => {
+
+    if (video.currentTime >= 50) {
+        video.currentTime = 11;
+    }
+
+});
