@@ -31,7 +31,7 @@ Expense Tracking · Budget Planning · Income Insights · Visual Analytics · Se
     </td>
     <td align="center">
       <a href="https://supabase.com/">
-        <img src="https://img.shields.io/badge/Database-Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
+        <img src="https://img.shields.io/badge/Database-Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=green" />
       </a><br>
       <strong>Database</strong>
     </td>
