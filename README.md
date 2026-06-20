@@ -10,7 +10,7 @@ Expense Tracking · Budget Planning · Income Insights · Visual Analytics · Se
 <br>
 
 <a href="https://budgettracker-gray.vercel.app/" target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/badge/OPEN-BUDGET%20TRACKER-00C896?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Open Budget Tracker Live Website" style="border-radius:20px;" />
+  <img src="https://img.shields.io/badge/OPEN-BUDGET%20TRACKER-00C896?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Open Budget Tracker Live Website" />
 </a>
 
 <br><br>
