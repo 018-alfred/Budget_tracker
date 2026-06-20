@@ -35,13 +35,7 @@ Expense Tracking · Budget Planning · Income Insights · Visual Analytics · Se
       </a><br>
       <strong>Database</strong>
     </td>
-    <td align="center">
-      <a href="https://nodejs.org/">
-        <img src="https://img.shields.io/badge/API-Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" />
-      </a><br>
-      <strong>Backend API</strong>
-    </td>
-  </tr>
+    
 </table>
 
 <br>
