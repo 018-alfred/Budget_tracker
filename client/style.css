@@ -679,142 +679,111 @@ video{
     color:#64748b;
 }
 
-/* TABLET */
-
-@media(max-width:992px){
-
-    .slide-content{
-        padding:25px;
-    }
-
-    .slide-content h2{
-        font-size:1.8rem;
-    }
-
-    .slide img{
-        height:400px;
-    }
+.menu-toggle{
+    display:none;
 }
 
-/* MOBILE */
+/* ============================
+   MOBILE ONLY (992px & BELOW)
+============================ */
+@media (max-width:992px){
 
-@media(max-width:768px){
+/* Header */
 
-    .slide-content h2{
-        font-size:1.4rem;
-    }
-
-    .slide-content p{
-        font-size:.95rem;
-    }
-
-    .slide img{
-        height:250px;
-        padding:10px;
-    }
-
-    .prev,
-    .next{
-        width:45px;
-        height:45px;
-    }
-
-    .prev{
-        left:5px;
-    }
-
-    .next{
-        right:5px;
-    }
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:150px;
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    z-index:999;
 }
 
-/* MOBILE */
+/* Logo */
 
-@media(max-width:1000px){
-
-    .about-budget{
-
-        height:auto;
-    }
-
-    .about-budget img{
-
-        min-height:600px;
-    }
-
-    .about-card{
-
-        position:relative;
-
-        left:auto;
-        top:auto;
-
-        transform:none;
-
-        width:90%;
-
-        margin:30px auto;
-    }
-
-    .about-card h2{
-
-        font-size:2.3rem;
-    }
+.logo{
+    flex:1;
 }
 
-@media(max-width:768px){
-
-    .hero-content h2{
-        font-size:2.5rem;
-    }
-
-    .hero-content p{
-        font-size:1rem;
-    }
-
-}
-/* ===========================
-   RESPONSIVE DESIGN
-=========================== */
-
-@media(max-width:900px){
-
-    header{
-        flex-direction:column;
-        gap:15px;
-        padding:20px;
-    }
-
-    nav{
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .hero h2{
-        font-size:2.8rem;
-    }
-
-    .footer-container{
-        grid-template-columns:1fr;
-        text-align:center;
-    }
-
-    .footer-brand p{
-        margin:auto;
-    }
+.logo h1{
+    font-size:1.6rem;
 }
 
-@media(max-width:600px){
+/* Navigation */
 
-    .hero h2{
-        font-size:2rem;
-    }
+nav{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:10px;
+}
 
-    .hero p{
-        font-size:1rem;
-    }
+/* Hide only navigation links */
 
-    .footer-container{
-        padding:0 20px;
-    }
+nav > a{
+    display:none;
+}
+
+/* Keep Login & Signup visible */
+
+#auth-area{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+/* Existing buttons */
+
+#login-link,
+#signup-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px 16px;
+    font-size:15px;
+}
+
+/* Hamburger */
+
+.menu-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:45px;
+    height:45px;
+    cursor:pointer;
+    font-size:28px;
+}
+
+/* Mobile dropdown */
+
+nav.mobile-open{
+    position:absolute;
+    top:75px;
+    left:0;
+    width:100%;
+    flex-direction:column;
+    align-items:center;
+    padding:20px 0;
+}
+
+/* Show links after clicking */
+
+nav.mobile-open > a{
+    display:block;
+    width:90%;
+    padding:15px;
+    text-align:center;
+}
+
+/* Keep buttons visible */
+
+nav.mobile-open #auth-area{
+    display:flex;
+}
+
 }
